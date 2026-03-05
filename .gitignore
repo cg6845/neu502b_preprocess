@@ -1,0 +1,22 @@
+# neuroimaging raw data
+data/
+bids/
+dicom/
+
+# imaging files
+*.nii
+*.nii.gz
+*.dcm
+
+# logs
+logs/
+
+# python
+__pycache__/
+*.pyc
+
+# jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
