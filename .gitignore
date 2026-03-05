@@ -1,22 +1,57 @@
-# neuroimaging raw data
-data/
-bids/
-dicom/
+# =========================
+# Neuroimaging / BIDS .gitignore
+# =========================
 
-# imaging files
+# Raw imaging data
 *.nii
 *.nii.gz
 *.dcm
+*.IMA
+*.img
+*.hdr
+*.mgz
 
-# logs
+# Data directories
+data/
+dicom/
+raw/
+bids/derivatives/
+
+# Logs and cluster outputs
 logs/
+*.log
+*.out
+.err
 
-# python
-__pycache__/
-*.pyc
+# Scratch / temporary directories
+work/
+tmp/
+scratch/
 
-# jupyter
+# Python cache
+pycache/
+.pyc
+.pyo
+
+# Jupyter
 .ipynb_checkpoints/
 
-# OS
+# macOS files
 .DS_Store
+
+# Editor temporary files
+*~
+.swp
+.swo
+
+# Singularity cache
+singularity-cache/
+
+#Keep BIDS metadata
+
+!bids/.json
+!bids/.tsv
+!bids/.tsv.gz
+!bids/.bval
+!bids/*.bvec
+!bids/dataset_description.json
