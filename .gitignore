@@ -10,7 +10,7 @@
 *.img
 *.hdr
 *.mgz
-
+*.tgz
 # Data directories
 
 data/*
