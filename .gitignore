@@ -12,9 +12,9 @@
 *.mgz
 
 # Data directories
-data/
-dicom/
-raw/
+
+data/*
+!data/.gitkeep
 bids/derivatives/
 
 # Logs and cluster outputs
