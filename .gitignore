@@ -11,11 +11,15 @@
 *.hdr
 *.mgz
 *.tgz
+*.tar.gz
+*.dicom
 # Data directories
 
 data/*
+new_study_template/data/
 !data/.gitkeep
 bids/derivatives/
+!.gitkeep
 
 # Logs and cluster outputs
 logs/
