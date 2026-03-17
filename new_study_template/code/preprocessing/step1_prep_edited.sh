@@ -26,3 +26,6 @@ singularity exec --cleanenv \
     --files /data/$subj_dir
 
 echo "Conversion complete."
+# STEP 5: deface T1w image
+echo "Running PYDEFACE on subject $subj, session $session"
+$scripts_dir/deface.sh $subj $session

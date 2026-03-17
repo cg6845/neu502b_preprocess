@@ -6,7 +6,7 @@
 #SBATCH --job-name=mriqc
 
 # Set array to be your subject number(s)
-#SBATCH --array=001, 002, 003
+#SBATCH --array=1,2,3,4
 
 # Where to output log files?
 # make sure this logs directory exists!! otherwise the script won't run
@@ -16,13 +16,13 @@
 #SBATCH --partition=all
 
 # How long is job?
-#SBATCH -t 3:00:00
+#SBATCH -t 4:00:00
 
 # How much memory to allocate (in MB)?
 #SBATCH --cpus-per-task=8 --mem-per-cpu=14000
 
 # Update with your email 
-#SBATCH --mail-user=YOUREMAIL@princeton.edu
+#SBATCH --mail-user=cg6845@princeton.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
 
 # Remove modules because Singularity shouldn't need them
