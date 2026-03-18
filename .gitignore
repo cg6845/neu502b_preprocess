@@ -21,12 +21,6 @@ new_study_template/data/
 bids/derivatives/
 !.gitkeep
 
-# Logs and cluster outputs
-logs/
-*.log
-*.out
-.err
-
 # Scratch / temporary directories
 work/
 tmp/
