@@ -22,7 +22,7 @@ def fmri_output_to_design(subject_id: str,              # keep
                       n_stim_per_run: int = 44,         # keep 
                       n_rep: int = 1,                   # keep 
                       timing_tolerance: float = 0.20,   # keep, should be lower 
-                      expected_duration: float = 392,   # keep 
+                      expected_duration: float = 392,   # keep, should be adjusted to account for different lengths for each participant  
                       stim_dur: float = 4,              # keep 
                       isi_dur: float = 4,               # keep
                       break_dur: float = 10,            # keep 
