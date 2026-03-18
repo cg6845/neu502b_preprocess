@@ -12,17 +12,17 @@ import re
 
 
 def fmri_output_to_design(subject_id: str,              # keep
-                      FMRI_OUTPUT_DIR: str,             # keep 
-                      STIMSET_DIR: str,                 # no need
+                      TASK_OUTPUT_DIR: str,             # keep 
                       OUTPUT_DESIGN_MATRIX_DIR: str,    # keep
-                      OUTPUT_STIMSET_DIR: str,          # keep
-                      stimset_name: str,                # no need
-                      n_runs: int = 20,                 # keep? but always 1 
-                      n_unique_stim: int = 880,         # keep 
-                      n_stim_per_run: int = 44,         # keep 
-                      n_rep: int = 1,                   # keep 
-                      timing_tolerance: float = 0.20,   # keep, should be lower 
-                      expected_duration: float = 392,   # keep, should be adjusted to account for different lengths for each participant  
+                      OUTPUT_STIMSET_DIR: str,          # potentially no need?
+                      fmri_run_duration: float,         # keep, should be adjusted to account for different lengths for each participant 
+                      stimset_name: str = "emotion_word",                
+                      n_runs: int = 1,                  # keep? but always 1 
+                      n_unique_stim: int = 24,          # keep 
+                      n_stim_per_run: int = 72,         # keep 
+                      n_rep: int = 3,                   # keep 
+                      timing_tolerance: float = 0.01,   # keep, should be lower 
+                      task_duration: float = 328,
                       stim_dur: float = 4,              # keep 
                       isi_dur: float = 4,               # keep
                       break_dur: float = 10,            # keep 
@@ -35,17 +35,17 @@ def fmri_output_to_design(subject_id: str,              # keep
     Create design matrices for GLMsingle.
     Generate new combined stimset and timekeys files in chronological order.
     :param subject_id: Subject ID
-    :param FMRI_OUTPUT_DIR: Path to the output files from fMRI
-    :param STIMSET_DIR: Path to the stimsets created for that subject
+    :param TASK_OUTPUT_DIR: Path to the output files from fMRI task code
     :param OUTPUT_DESIGN_MATRIX_DIR: Path to save the design matrices
     :param OUTPUT_STIMSET_DIR: Path to save the stimsets
     :param stimset_name: Name of the stimset/experiment
+    :param fmri_run_duration: Expected duration of each run (in seconds)
     :param n_runs: Number of runs (expected)
     :param n_unique_stim: Number of unique stimuli (expected)
     :param n_stim_per_run: Number of stimuli per run (expected)
     :param n_rep: Number of times each stimulus is repeated (expected)
     :param timing_tolerance: Tolerance for difference between expected and empirical timing (in seconds)
-    :param expected_duration: Expected duration of each run (in seconds)
+    :param task_duration: Expected duration of the task (in seconds)
     :param stim_dur: Stimulus duration (sentence) (in seconds)
     :param isi_dur: Inter-stimulus interval duration (in seconds)
     :param break_dur: Break duration (in seconds)
@@ -65,100 +65,95 @@ def fmri_output_to_design(subject_id: str,              # keep
     # Create n_runs lists of matrices size (trs_in_run, n_unique_stim)
     design_matrices = []
     for run in range(n_runs):
-        design_matrices.append(np.zeros((expected_duration // tr, n_unique_stim)))
-    print(f'Initialized {n_runs} design matrices of size {expected_duration} seconds by {n_unique_stim} unique stimuli')
+        design_matrices.append(np.zeros((fmri_run_duration // tr, n_unique_stim)))
+    print(f'Initialized {n_runs} design matrices of size {fmri_run_duration} seconds by {n_unique_stim} unique stimuli')
 
-    # TO CHANGE                             
     # Generate a simple savestr:
-    savestr = f'{stimset_name}_{subject_id}_all_sessions'
+    savestr = f'{stimset_name}_{subject_id}'
     
     # TO CHANGE - JUST READ IN OUTPUT FILE FOR THE SUBJECT 
-    # Load participant's stimfile (across all runs)
-    # IMPORTANT -- stimset file should have a run_idx column so the runs can be sorted in chronological order
-    stimset_file = f"stimset_{stimset_name}_{subject_id}_all.csv" # Load the version with all the stimuli
+    # Load participant's task output file with all stimuli and timing info 
+    stimset_file = f"{subject_id}_{stimset_name}_output.csv"
+    # stimset_file = f"stimset_{stimset_name}_{subject_id}_all.csv" # Load the version with all the stimuli
     
     # stimset_all = pd.read_csv(join(STIMSET_DIR, stimset_file))
-    stimset_path = join(STIMSET_DIR, stimset_name)
-    stimset_all = pd.read_csv(join(stimset_path, stimset_file))
+    stimset_path = join(TASK_OUTPUT_DIR, stimset_name)
+    timing_table = pd.read_csv(join(stimset_path, stimset_file))
 
-
-    # TO CHANGE -- don't need to loop across runs                                    
+                                    
     """
     Loop across runs in the chronological order they were shown in.
-    In this loop, run_idx refers to the chronological index of the run, as opposed to run_id, which identifies which run it is.
+    NOTE: we only have one run, so the loop is functionally useless
     """
     for run_idx in np.arange(1, n_runs+1):
         
-        # TO CHANGE -- NOTHING BELOW IS NEEDED 
+        # # TO CHANGE -- NOTHING BELOW IS NEEDED 
 
-        # Filter stimset for appropriate run, based on run_idx
-        stimset = stimset_all[stimset_all.run_idx == run_idx]
+        # # Filter stimset for appropriate run, based on run_idx
+        # stimset = stimset_all[stimset_all.run_idx == run_idx]
         
-        # Make sure we only have the one run included and create a string for run_id (which may differ from run_idx)
-        match_run_id = np.unique(stimset['run_id'].values)
-        assert (len(match_run_id) == 1), f"Too many run IDs included"
-        run_id_str = str(match_run_id[0]).zfill(2)
+        # # Make sure we only have the one run included and create a string for run_id (which may differ from run_idx)
+        # match_run_id = np.unique(stimset['run_id'].values)
+        # assert (len(match_run_id) == 1), f"Too many run IDs included"
+        # run_id_str = str(match_run_id[0]).zfill(2)
 
-        # Load the output file for the run (csv file)                                      
-        output_file_name = f'{stimset_name}_{subject_id}_session-*_run-{run_id_str}_data.csv'
-        output_file_name_search = join(FMRI_OUTPUT_DIR, output_file_name)
-        output_file = glob.glob(output_file_name_search)
+        # # Load the output file for the run (csv file)                                      
+        # output_file_name = f'{stimset_name}_{subject_id}_session-*_run-{run_id_str}_data.csv'
+        # output_file_name_search = join(OUTPUT_DIR, output_file_name)
+        # output_file = glob.glob(output_file_name_search)
         
-        # Make sure only one output file exists for the run 
-        assert len(output_file) == 1, f"More than one output files found for run {run_id_str}"
+        # # Make sure only one output file exists for the run 
+        # assert len(output_file) == 1, f"More than one output files found for run {run_id_str}"
         
-        # Create dataframe for the output file  
-        timing_table = pd.read_csv(output_file[0])
+        # # Create dataframe for the output file  
+        # timing_table = pd.read_csv(output_file[0])
       
     
         """
         Check that the output table matches expected parameters and stimset, and combine it with the stimset information.
         """
-        # TO CHANGE -- NOT NEEDED
+        # # TO CHANGE -- NOT NEEDED
 
-        # Add the session ID from stimset table to the output table (not the original file)
-        # Check that there's only one session ID for the run 
-        match_session_id = np.unique(stimset['session_id'].values)
-        assert (len(match_session_id) == 1), f"Too many session IDs included"
-        # Add session ID to the empty column in timing table
-        timing_table.session_id = match_session_id[0]    
+        # # Add the session ID from stimset table to the output table (not the original file)
+        # # Check that there's only one session ID for the run 
+        # match_session_id = np.unique(stimset['session_id'].values)
+        # assert (len(match_session_id) == 1), f"Too many session IDs included"
+        # # Add session ID to the empty column in timing table
+        # timing_table.session_id = match_session_id[0]    
 
-
-        # TO CHANGE -- KEEP THIS BUT ADJUST -- just for emotion_word_task
 
         # Create a copy of the timing table with just the stimuli and calculate the onset time lag (expected - recorded)
-        timing_table_sent = timing_table.copy(deep=True)[timing_table.copy(deep=True)['cond_expt'] == 'sentence']
-        timing_table_sent['onset_diff_recorded_time_onset'] = abs(timing_table_sent['onset'] - timing_table_sent['recorded_time_onset'])
+        timing_table_words = timing_table.copy(deep=True)[timing_table.copy(deep=True)['condition'] == 'emotion_word']
+        timing_table_words['onset_diff_recorded_time_onset'] = abs(timing_table_words['expected_onset'] - timing_table_words['adjusted_recorded_onset'])
 
-        # TO CHANGE -- KEEP THIS BUT ADJUST 
 
-        # Perform assertions against the expected params and stimset
-        assert len(timing_table_sent) == n_stim_per_run, f"Number of stimuli in {output_file} is not {n_stim_per_run}"
-        assert (timing_table_sent['sent_index'].values == stimset['trial_within_run'].values).all(), f"Trial IDs and sent_index in {output_file} do not match the stimset"
-        assert (np.diff(timing_table_sent['trial_within_run'].values) == 1).all(), f"Trial IDs in {output_file} are not ascending and incrementing by 1"
+        # Perform assertions against the expected params 
+        assert len(timing_table_words) == n_stim_per_run, f"Number of stimuli in {stimset_file} is not {n_stim_per_run}"
+        assert (np.diff(timing_table_words['trial'].values) == 1).all(), f"Trial IDs in {stimset_file} are not ascending and incrementing by 1"
         
-        # TO CHANGE -- DON'T NEED THIS
+#         # TO CHANGE -- DON'T NEED THIS
 
-        # For overlapping columns between timing_table and stimset, assert that they are the same
-        # TODO: fix this so it doesn't break with deviations from planned order
-        overlapping_cols = np.intersect1d(timing_table_sent.columns, stimset.columns)
-#         for col in overlapping_cols:
-#             # print(col)
-#             # if the column is not one with problematic values (NaN)
-#             if col not in ['babyLM_100M', 'bucket', 'diff_baby_full', 'fully_trained', 'sentence_id']:
-#                 assert (timing_table_sent[col].values == stimset[col].values).all(), f"Column {col} in {output_file} does not match the stimset"
+#         # For overlapping columns between timing_table and stimset, assert that they are the same
+#         # TODO: fix this so it doesn't break with deviations from planned order
+#         overlapping_cols = np.intersect1d(timing_table_sent.columns, stimset.columns)
+# #         for col in overlapping_cols:
+# #             # print(col)
+# #             # if the column is not one with problematic values (NaN)
+# #             if col not in ['babyLM_100M', 'bucket', 'diff_baby_full', 'fully_trained', 'sentence_id']:
+# #                 assert (timing_table_sent[col].values == stimset[col].values).all(), f"Column {col} in {output_file} does not match the stimset"
 
-        # Get cols in stimset but not in timing_table
-        cols_in_stimset_not_in_timing_table = list(np.setdiff1d(stimset.columns, timing_table_sent.columns))
-        # Add these cols to timing_table_sent such that we obtain one "unified" timing_table with stimset info too
-        # (we've just asserted that the critical cols, e.g., sentence and item_id are identical) <- NOT DONE YET
-        timing_table_sent = pd.merge(timing_table_sent, stimset[['item_id'] + cols_in_stimset_not_in_timing_table], on='item_id')
+#         # Get cols in stimset but not in timing_table
+#         cols_in_stimset_not_in_timing_table = list(np.setdiff1d(stimset.columns, timing_table_sent.columns))
+#         # Add these cols to timing_table_sent such that we obtain one "unified" timing_table with stimset info too
+#         # (we've just asserted that the critical cols, e.g., sentence and item_id are identical) <- NOT DONE YET
+#         timing_table_sent = pd.merge(timing_table_sent, stimset[['item_id'] + cols_in_stimset_not_in_timing_table], on='item_id')
         
-        # Add the unified timing table for the run to the overall one
-        timing_table_stimset_across_runs.append(timing_table_sent)
+#         # Add the unified timing table for the run to the overall one
+#         timing_table_stimset_across_runs.append(timing_table_sent)
         
-        print(f' == {output_file} passed assertions against the stimset == ')
+        print(f' == {stimset_file} passed assertions against the expected input == ')
         
+        # NOTE: CHANGES STOPPED HERE!!!
         
         """
         Check the timing in the timing table
