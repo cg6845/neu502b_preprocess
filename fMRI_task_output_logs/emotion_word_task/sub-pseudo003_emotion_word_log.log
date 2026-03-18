@@ -1,0 +1,538 @@
+0.0006 	INFO 	Starting session subid=7c2d7864-aadf-4d34-8633-3f7ab53f66bb
+0.0008 	WARNING 	Monitor specification not found. Creating a temporary one...
+0.0051 	WARNING 	User requested fullscreen with size [800 600], but screen is actually [1920, 1080]. Using actual size
+0.1271 	INFO 	Using renderer 'AMD Radeon Pro W6600' for graphics
+0.1271 	INFO 	OpenGL version supported by driver is 4..
+2.4424 	EXP 	Created Window = Window(allowGUI=True, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x0000027032FF82E0>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x0000027032FF8280>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([1, 1, 1]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x00000270330381F0>, multiSample=False, name='Window', numSamples=2, pos=(0, 0), screen=0, size=array([1920, 1080]), stencilBits=0, stereo=False, title='PsychoPy', units='pix', useFBO=False, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+2.4424 	EXP 	Window: backgroundImage = None
+2.4425 	EXP 	Window: backgroundFit = 'cover'
+2.4802 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([-1., -1., -1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=np.float64(60.0), italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='waiting for scanner input', units='pix', win=Window(...), wrapWidth=500)
+2.4827 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([-1., -1., -1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=np.float64(60.0), italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='+', units='pix', win=Window(...), wrapWidth=500)
+2.4834 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([-1., -1., -1.]), colorSpace='rgb', contrast=1.0, depth=0, draggable=False, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=60, italic=False, languageStyle='LTR', name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='', units='pix', win=Window(...), wrapWidth=500)
+20.7580 	DATA 	Keypress: equal
+20.7582 	INFO 	Start key pressed: ['equal']
+20.7618 	DATA 	Trial 0 start: word=depressed
+22.7629 	DATA 	Keypress: equal
+24.7681 	DATA 	Keypress: equal
+26.7652 	DATA 	Keypress: equal
+28.7590 	DATA 	Keypress: equal
+30.7582 	DATA 	Keypress: equal
+30.7624 	EXP 	unnamed TextStim: height = np.float64(60.0)
+30.7624 	EXP 	unnamed TextStim: height = np.float64(60.0)
+30.7624 	EXP 	unnamed TextStim: height = np.float64(60.0)
+30.7624 	EXP 	unnamed TextStim: text = 'depressed'
+32.7594 	DATA 	Keypress: equal
+34.7596 	DATA 	Keypress: equal
+34.7597 	DATA 	Trial 1 start: word=alarmed
+34.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+34.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+34.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+34.7634 	EXP 	unnamed TextStim: text = 'alarmed'
+36.7585 	DATA 	Keypress: equal
+38.7583 	DATA 	Keypress: equal
+38.7585 	DATA 	Trial 2 start: word=pleased
+38.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+38.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+38.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+38.7630 	EXP 	unnamed TextStim: text = 'pleased'
+40.7584 	DATA 	Keypress: equal
+42.7600 	DATA 	Keypress: equal
+42.7601 	DATA 	Trial 3 start: word=distressed
+42.7648 	EXP 	unnamed TextStim: height = np.float64(60.0)
+42.7648 	EXP 	unnamed TextStim: height = np.float64(60.0)
+42.7648 	EXP 	unnamed TextStim: height = np.float64(60.0)
+42.7648 	EXP 	unnamed TextStim: text = 'distressed'
+44.7584 	DATA 	Keypress: equal
+46.7590 	DATA 	Keypress: equal
+46.7591 	DATA 	Trial 4 start: word=annoyed
+46.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+46.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+46.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+46.7626 	EXP 	unnamed TextStim: text = 'annoyed'
+48.7586 	DATA 	Keypress: equal
+50.7584 	DATA 	Keypress: equal
+50.7585 	DATA 	Trial 5 start: word=satisfied
+50.7625 	EXP 	unnamed TextStim: height = np.float64(60.0)
+50.7625 	EXP 	unnamed TextStim: height = np.float64(60.0)
+50.7625 	EXP 	unnamed TextStim: height = np.float64(60.0)
+50.7625 	EXP 	unnamed TextStim: text = 'satisfied'
+52.7587 	DATA 	Keypress: equal
+54.7582 	DATA 	Keypress: equal
+54.7583 	DATA 	Trial 6 start: word=astonished
+54.7616 	EXP 	unnamed TextStim: height = np.float64(60.0)
+54.7616 	EXP 	unnamed TextStim: height = np.float64(60.0)
+54.7616 	EXP 	unnamed TextStim: height = np.float64(60.0)
+54.7616 	EXP 	unnamed TextStim: text = 'astonished'
+56.7586 	DATA 	Keypress: equal
+58.7589 	DATA 	Keypress: equal
+58.7590 	DATA 	Trial 7 start: word=afraid
+58.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+58.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+58.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+58.7634 	EXP 	unnamed TextStim: text = 'afraid'
+60.7593 	DATA 	Keypress: equal
+62.7594 	DATA 	Keypress: equal
+62.7595 	DATA 	Trial 8 start: word=calm
+62.7639 	EXP 	unnamed TextStim: height = np.float64(60.0)
+62.7639 	EXP 	unnamed TextStim: height = np.float64(60.0)
+62.7639 	EXP 	unnamed TextStim: height = np.float64(60.0)
+62.7639 	EXP 	unnamed TextStim: text = 'calm'
+64.7584 	DATA 	Keypress: equal
+66.7591 	DATA 	Keypress: equal
+66.7591 	DATA 	Trial 9 start: word=sleepy
+66.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+66.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+66.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+66.7630 	EXP 	unnamed TextStim: text = 'sleepy'
+68.7594 	DATA 	Keypress: equal
+70.7593 	DATA 	Keypress: equal
+70.7594 	DATA 	Trial 10 start: word=frustrated
+70.7643 	EXP 	unnamed TextStim: height = np.float64(60.0)
+70.7643 	EXP 	unnamed TextStim: height = np.float64(60.0)
+70.7643 	EXP 	unnamed TextStim: height = np.float64(60.0)
+70.7643 	EXP 	unnamed TextStim: text = 'frustrated'
+72.7586 	DATA 	Keypress: equal
+74.7584 	DATA 	Keypress: equal
+74.7585 	DATA 	Trial 11 start: word=content
+74.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+74.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+74.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+74.7629 	EXP 	unnamed TextStim: text = 'content'
+76.7598 	DATA 	Keypress: equal
+78.7583 	DATA 	Keypress: equal
+78.7584 	DATA 	Trial 12 start: word=angry
+78.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+78.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+78.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+78.7627 	EXP 	unnamed TextStim: text = 'angry'
+80.7585 	DATA 	Keypress: equal
+82.7588 	DATA 	Keypress: equal
+82.7589 	DATA 	Trial 13 start: word=droopy
+82.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+82.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+82.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+82.7632 	EXP 	unnamed TextStim: text = 'droopy'
+84.7591 	DATA 	Keypress: equal
+86.7589 	DATA 	Keypress: equal
+86.7589 	DATA 	Trial 14 start: word=tired
+86.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+86.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+86.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+86.7630 	EXP 	unnamed TextStim: text = 'tired'
+88.7593 	DATA 	Keypress: equal
+90.7595 	DATA 	Keypress: equal
+90.7596 	DATA 	Trial 15 start: word=excited
+90.7636 	EXP 	unnamed TextStim: height = np.float64(60.0)
+90.7636 	EXP 	unnamed TextStim: height = np.float64(60.0)
+90.7636 	EXP 	unnamed TextStim: height = np.float64(60.0)
+90.7636 	EXP 	unnamed TextStim: text = 'excited'
+92.7594 	DATA 	Keypress: equal
+94.7595 	DATA 	Keypress: equal
+94.7596 	DATA 	Trial 16 start: word=bored
+94.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+94.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+94.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+94.7629 	EXP 	unnamed TextStim: text = 'bored'
+96.7586 	DATA 	Keypress: equal
+98.7583 	DATA 	Keypress: equal
+98.7584 	DATA 	Trial 17 start: word=aroused
+98.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+98.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+98.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+98.7627 	EXP 	unnamed TextStim: text = 'aroused'
+100.7592 	DATA 	Keypress: equal
+102.7585 	DATA 	Keypress: equal
+102.7586 	DATA 	Trial 18 start: word=glad
+102.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+102.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+102.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+102.7627 	EXP 	unnamed TextStim: text = 'glad'
+104.7592 	DATA 	Keypress: equal
+106.7593 	DATA 	Keypress: equal
+106.7594 	DATA 	Trial 19 start: word=serene
+106.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+106.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+106.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+106.7635 	EXP 	unnamed TextStim: text = 'serene'
+108.7583 	DATA 	Keypress: equal
+110.7584 	DATA 	Keypress: equal
+110.7584 	DATA 	Trial 20 start: word=amused
+110.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+110.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+110.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+110.7630 	EXP 	unnamed TextStim: text = 'amused'
+112.7593 	DATA 	Keypress: equal
+114.7594 	DATA 	Keypress: equal
+114.7594 	DATA 	Trial 21 start: word=delighted
+114.7642 	EXP 	unnamed TextStim: height = np.float64(60.0)
+114.7642 	EXP 	unnamed TextStim: height = np.float64(60.0)
+114.7642 	EXP 	unnamed TextStim: height = np.float64(60.0)
+114.7642 	EXP 	unnamed TextStim: text = 'delighted'
+116.7585 	DATA 	Keypress: equal
+118.7594 	DATA 	Keypress: equal
+118.7595 	DATA 	Trial 22 start: word=gloomy
+118.7640 	EXP 	unnamed TextStim: height = np.float64(60.0)
+118.7640 	EXP 	unnamed TextStim: height = np.float64(60.0)
+118.7640 	EXP 	unnamed TextStim: height = np.float64(60.0)
+118.7640 	EXP 	unnamed TextStim: text = 'gloomy'
+120.7581 	DATA 	Keypress: equal
+122.7585 	DATA 	Keypress: equal
+122.7586 	DATA 	Trial 23 start: word=miserable
+122.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+122.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+122.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+122.7632 	EXP 	unnamed TextStim: text = 'miserable'
+124.7583 	DATA 	Keypress: equal
+126.7583 	DATA 	Keypress: equal
+128.7581 	DATA 	Keypress: equal
+130.7659 	DATA 	Keypress: equal
+132.7678 	DATA 	Keypress: equal
+134.7582 	DATA 	Keypress: equal
+136.7575 	DATA 	Keypress: equal
+136.7583 	DATA 	Trial 24 start: word=sleepy
+136.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+136.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+136.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+136.7628 	EXP 	unnamed TextStim: text = 'sleepy'
+138.7582 	DATA 	Keypress: equal
+140.7587 	DATA 	Keypress: equal
+140.7588 	DATA 	Trial 25 start: word=afraid
+140.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+140.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+140.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+140.7632 	EXP 	unnamed TextStim: text = 'afraid'
+142.7584 	DATA 	Keypress: equal
+144.7582 	DATA 	Keypress: equal
+144.7583 	DATA 	Trial 26 start: word=angry
+144.7623 	EXP 	unnamed TextStim: height = np.float64(60.0)
+144.7623 	EXP 	unnamed TextStim: height = np.float64(60.0)
+144.7623 	EXP 	unnamed TextStim: height = np.float64(60.0)
+144.7623 	EXP 	unnamed TextStim: text = 'angry'
+146.7581 	DATA 	Keypress: equal
+148.7592 	DATA 	Keypress: equal
+148.7592 	DATA 	Trial 27 start: word=excited
+148.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+148.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+148.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+148.7635 	EXP 	unnamed TextStim: text = 'excited'
+150.7590 	DATA 	Keypress: equal
+152.7584 	DATA 	Keypress: equal
+152.7585 	DATA 	Trial 28 start: word=delighted
+152.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+152.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+152.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+152.7629 	EXP 	unnamed TextStim: text = 'delighted'
+154.7578 	DATA 	Keypress: equal
+156.7583 	DATA 	Keypress: equal
+156.7584 	DATA 	Trial 29 start: word=bored
+156.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+156.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+156.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+156.7626 	EXP 	unnamed TextStim: text = 'bored'
+158.7599 	DATA 	Keypress: equal
+160.7585 	DATA 	Keypress: equal
+160.7585 	DATA 	Trial 30 start: word=frustrated
+160.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+160.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+160.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+160.7627 	EXP 	unnamed TextStim: text = 'frustrated'
+162.7573 	DATA 	Keypress: equal
+164.7573 	DATA 	Keypress: equal
+164.7583 	DATA 	Trial 31 start: word=tired
+164.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+164.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+164.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+164.7627 	EXP 	unnamed TextStim: text = 'tired'
+166.7580 	DATA 	Keypress: equal
+168.7594 	DATA 	Keypress: equal
+168.7595 	DATA 	Trial 32 start: word=serene
+168.7638 	EXP 	unnamed TextStim: height = np.float64(60.0)
+168.7638 	EXP 	unnamed TextStim: height = np.float64(60.0)
+168.7638 	EXP 	unnamed TextStim: height = np.float64(60.0)
+168.7638 	EXP 	unnamed TextStim: text = 'serene'
+170.7576 	DATA 	Keypress: equal
+172.7582 	DATA 	Keypress: equal
+172.7583 	DATA 	Trial 33 start: word=distressed
+172.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+172.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+172.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+172.7627 	EXP 	unnamed TextStim: text = 'distressed'
+174.7595 	DATA 	Keypress: equal
+176.7580 	DATA 	Keypress: equal
+176.7588 	DATA 	Trial 34 start: word=glad
+176.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+176.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+176.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+176.7629 	EXP 	unnamed TextStim: text = 'glad'
+178.7580 	DATA 	Keypress: equal
+180.7584 	DATA 	Keypress: equal
+180.7584 	DATA 	Trial 35 start: word=gloomy
+180.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+180.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+180.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+180.7626 	EXP 	unnamed TextStim: text = 'gloomy'
+182.7582 	DATA 	Keypress: equal
+184.7592 	DATA 	Keypress: equal
+184.7592 	DATA 	Trial 36 start: word=annoyed
+184.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+184.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+184.7635 	EXP 	unnamed TextStim: height = np.float64(60.0)
+184.7635 	EXP 	unnamed TextStim: text = 'annoyed'
+186.7584 	DATA 	Keypress: equal
+188.7583 	DATA 	Keypress: equal
+188.7583 	DATA 	Trial 37 start: word=satisfied
+188.7624 	EXP 	unnamed TextStim: height = np.float64(60.0)
+188.7624 	EXP 	unnamed TextStim: height = np.float64(60.0)
+188.7624 	EXP 	unnamed TextStim: height = np.float64(60.0)
+188.7624 	EXP 	unnamed TextStim: text = 'satisfied'
+190.7589 	DATA 	Keypress: equal
+192.7594 	DATA 	Keypress: equal
+192.7595 	DATA 	Trial 38 start: word=miserable
+192.7641 	EXP 	unnamed TextStim: height = np.float64(60.0)
+192.7641 	EXP 	unnamed TextStim: height = np.float64(60.0)
+192.7641 	EXP 	unnamed TextStim: height = np.float64(60.0)
+192.7641 	EXP 	unnamed TextStim: text = 'miserable'
+194.7596 	DATA 	Keypress: equal
+196.7594 	DATA 	Keypress: equal
+196.7595 	DATA 	Trial 39 start: word=amused
+196.7639 	EXP 	unnamed TextStim: height = np.float64(60.0)
+196.7639 	EXP 	unnamed TextStim: height = np.float64(60.0)
+196.7639 	EXP 	unnamed TextStim: height = np.float64(60.0)
+196.7639 	EXP 	unnamed TextStim: text = 'amused'
+198.7585 	DATA 	Keypress: equal
+200.7585 	DATA 	Keypress: equal
+200.7586 	DATA 	Trial 40 start: word=pleased
+200.7633 	EXP 	unnamed TextStim: height = np.float64(60.0)
+200.7633 	EXP 	unnamed TextStim: height = np.float64(60.0)
+200.7633 	EXP 	unnamed TextStim: height = np.float64(60.0)
+200.7633 	EXP 	unnamed TextStim: text = 'pleased'
+202.7595 	DATA 	Keypress: equal
+204.7576 	DATA 	Keypress: equal
+204.7585 	DATA 	Trial 41 start: word=depressed
+204.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+204.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+204.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+204.7631 	EXP 	unnamed TextStim: text = 'depressed'
+206.7586 	DATA 	Keypress: equal
+208.7581 	DATA 	Keypress: equal
+208.7591 	DATA 	Trial 42 start: word=droopy
+208.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+208.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+208.7634 	EXP 	unnamed TextStim: height = np.float64(60.0)
+208.7634 	EXP 	unnamed TextStim: text = 'droopy'
+210.7585 	DATA 	Keypress: equal
+212.7585 	DATA 	Keypress: equal
+212.7586 	DATA 	Trial 43 start: word=content
+212.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+212.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+212.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+212.7630 	EXP 	unnamed TextStim: text = 'content'
+214.7583 	DATA 	Keypress: equal
+216.7576 	DATA 	Keypress: equal
+216.7585 	DATA 	Trial 44 start: word=astonished
+216.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+216.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+216.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+216.7631 	EXP 	unnamed TextStim: text = 'astonished'
+218.7575 	DATA 	Keypress: equal
+220.7585 	DATA 	Keypress: equal
+220.7586 	DATA 	Trial 45 start: word=calm
+220.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+220.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+220.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+220.7629 	EXP 	unnamed TextStim: text = 'calm'
+222.7584 	DATA 	Keypress: equal
+224.7583 	DATA 	Keypress: equal
+224.7584 	DATA 	Trial 46 start: word=aroused
+224.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+224.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+224.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+224.7628 	EXP 	unnamed TextStim: text = 'aroused'
+226.7584 	DATA 	Keypress: equal
+228.7583 	DATA 	Keypress: equal
+228.7584 	DATA 	Trial 47 start: word=alarmed
+228.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+228.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+228.7627 	EXP 	unnamed TextStim: height = np.float64(60.0)
+228.7627 	EXP 	unnamed TextStim: text = 'alarmed'
+230.7575 	DATA 	Keypress: equal
+232.7580 	DATA 	Keypress: equal
+234.7661 	DATA 	Keypress: equal
+236.7605 	DATA 	Keypress: equal
+238.7645 	DATA 	Keypress: equal
+240.7660 	DATA 	Keypress: equal
+242.7575 	DATA 	Keypress: equal
+242.7585 	DATA 	Trial 48 start: word=afraid
+242.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+242.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+242.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+242.7630 	EXP 	unnamed TextStim: text = 'afraid'
+244.7572 	DATA 	Keypress: equal
+246.7584 	DATA 	Keypress: equal
+246.7585 	DATA 	Trial 49 start: word=miserable
+246.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+246.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+246.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+246.7626 	EXP 	unnamed TextStim: text = 'miserable'
+248.7583 	DATA 	Keypress: equal
+250.7588 	DATA 	Keypress: equal
+250.7589 	DATA 	Trial 50 start: word=bored
+250.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+250.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+250.7629 	EXP 	unnamed TextStim: height = np.float64(60.0)
+250.7629 	EXP 	unnamed TextStim: text = 'bored'
+252.7583 	DATA 	Keypress: equal
+254.7574 	DATA 	Keypress: equal
+254.7591 	DATA 	Trial 51 start: word=droopy
+254.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+254.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+254.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+254.7632 	EXP 	unnamed TextStim: text = 'droopy'
+256.7586 	DATA 	Keypress: equal
+258.7583 	DATA 	Keypress: equal
+258.7584 	DATA 	Trial 52 start: word=glad
+258.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+258.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+258.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+258.7628 	EXP 	unnamed TextStim: text = 'glad'
+260.7585 	DATA 	Keypress: equal
+262.7575 	DATA 	Keypress: equal
+262.7602 	DATA 	Trial 53 start: word=sleepy
+262.7648 	EXP 	unnamed TextStim: height = np.float64(60.0)
+262.7648 	EXP 	unnamed TextStim: height = np.float64(60.0)
+262.7648 	EXP 	unnamed TextStim: height = np.float64(60.0)
+262.7648 	EXP 	unnamed TextStim: text = 'sleepy'
+264.7580 	DATA 	Keypress: equal
+266.7578 	DATA 	Keypress: equal
+266.7587 	DATA 	Trial 54 start: word=serene
+266.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+266.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+266.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+266.7631 	EXP 	unnamed TextStim: text = 'serene'
+268.7578 	DATA 	Keypress: equal
+270.7576 	DATA 	Keypress: equal
+270.7584 	DATA 	Trial 55 start: word=satisfied
+270.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+270.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+270.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+270.7632 	EXP 	unnamed TextStim: text = 'satisfied'
+272.7593 	DATA 	Keypress: equal
+274.7574 	DATA 	Keypress: equal
+274.7602 	DATA 	Trial 56 start: word=annoyed
+274.7652 	EXP 	unnamed TextStim: height = np.float64(60.0)
+274.7652 	EXP 	unnamed TextStim: height = np.float64(60.0)
+274.7652 	EXP 	unnamed TextStim: height = np.float64(60.0)
+274.7652 	EXP 	unnamed TextStim: text = 'annoyed'
+276.7587 	DATA 	Keypress: equal
+278.7577 	DATA 	Keypress: equal
+278.7585 	DATA 	Trial 57 start: word=aroused
+278.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+278.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+278.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+278.7631 	EXP 	unnamed TextStim: text = 'aroused'
+280.7574 	DATA 	Keypress: equal
+282.7585 	DATA 	Keypress: equal
+282.7585 	DATA 	Trial 58 start: word=excited
+282.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+282.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+282.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+282.7631 	EXP 	unnamed TextStim: text = 'excited'
+284.7574 	DATA 	Keypress: equal
+286.7573 	DATA 	Keypress: equal
+286.7602 	DATA 	Trial 59 start: word=tired
+286.7644 	EXP 	unnamed TextStim: height = np.float64(60.0)
+286.7644 	EXP 	unnamed TextStim: height = np.float64(60.0)
+286.7644 	EXP 	unnamed TextStim: height = np.float64(60.0)
+286.7644 	EXP 	unnamed TextStim: text = 'tired'
+288.7575 	DATA 	Keypress: equal
+290.7575 	DATA 	Keypress: equal
+290.7583 	DATA 	Trial 60 start: word=alarmed
+290.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+290.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+290.7628 	EXP 	unnamed TextStim: height = np.float64(60.0)
+290.7628 	EXP 	unnamed TextStim: text = 'alarmed'
+292.7581 	DATA 	Keypress: equal
+294.7585 	DATA 	Keypress: equal
+294.7585 	DATA 	Trial 61 start: word=calm
+294.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+294.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+294.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+294.7626 	EXP 	unnamed TextStim: text = 'calm'
+296.7568 	DATA 	Keypress: equal
+298.7574 	DATA 	Keypress: equal
+298.7583 	DATA 	Trial 62 start: word=content
+298.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+298.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+298.7626 	EXP 	unnamed TextStim: height = np.float64(60.0)
+298.7626 	EXP 	unnamed TextStim: text = 'content'
+300.7585 	DATA 	Keypress: equal
+302.7584 	DATA 	Keypress: equal
+302.7585 	DATA 	Trial 63 start: word=pleased
+302.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+302.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+302.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+302.7630 	EXP 	unnamed TextStim: text = 'pleased'
+304.7575 	DATA 	Keypress: equal
+306.7574 	DATA 	Keypress: equal
+306.7602 	DATA 	Trial 64 start: word=angry
+306.7647 	EXP 	unnamed TextStim: height = np.float64(60.0)
+306.7647 	EXP 	unnamed TextStim: height = np.float64(60.0)
+306.7647 	EXP 	unnamed TextStim: height = np.float64(60.0)
+306.7647 	EXP 	unnamed TextStim: text = 'angry'
+308.7586 	DATA 	Keypress: equal
+310.7585 	DATA 	Keypress: equal
+310.7586 	DATA 	Trial 65 start: word=depressed
+310.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+310.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+310.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+310.7630 	EXP 	unnamed TextStim: text = 'depressed'
+312.7573 	DATA 	Keypress: equal
+314.7570 	DATA 	Keypress: equal
+314.7589 	DATA 	Trial 66 start: word=delighted
+314.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+314.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+314.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+314.7632 	EXP 	unnamed TextStim: text = 'delighted'
+316.7574 	DATA 	Keypress: equal
+318.7583 	DATA 	Keypress: equal
+318.7583 	DATA 	Trial 67 start: word=amused
+318.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+318.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+318.7630 	EXP 	unnamed TextStim: height = np.float64(60.0)
+318.7630 	EXP 	unnamed TextStim: text = 'amused'
+320.7582 	DATA 	Keypress: equal
+322.7576 	DATA 	Keypress: equal
+322.7583 	DATA 	Trial 68 start: word=astonished
+322.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+322.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+322.7631 	EXP 	unnamed TextStim: height = np.float64(60.0)
+322.7631 	EXP 	unnamed TextStim: text = 'astonished'
+324.7573 	DATA 	Keypress: equal
+326.7581 	DATA 	Keypress: equal
+326.7599 	DATA 	Trial 69 start: word=gloomy
+326.7643 	EXP 	unnamed TextStim: height = np.float64(60.0)
+326.7643 	EXP 	unnamed TextStim: height = np.float64(60.0)
+326.7643 	EXP 	unnamed TextStim: height = np.float64(60.0)
+326.7643 	EXP 	unnamed TextStim: text = 'gloomy'
+328.7584 	DATA 	Keypress: equal
+330.7572 	DATA 	Keypress: equal
+330.7601 	DATA 	Trial 70 start: word=distressed
+330.7647 	EXP 	unnamed TextStim: height = np.float64(60.0)
+330.7647 	EXP 	unnamed TextStim: height = np.float64(60.0)
+330.7647 	EXP 	unnamed TextStim: height = np.float64(60.0)
+330.7647 	EXP 	unnamed TextStim: text = 'distressed'
+332.7574 	DATA 	Keypress: equal
+334.7575 	DATA 	Keypress: equal
+334.7583 	DATA 	Trial 71 start: word=frustrated
+334.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+334.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+334.7632 	EXP 	unnamed TextStim: height = np.float64(60.0)
+334.7632 	EXP 	unnamed TextStim: text = 'frustrated'
+336.7576 	DATA 	Keypress: equal
+338.7576 	DATA 	Keypress: equal
+340.7575 	DATA 	Keypress: equal
+342.7665 	DATA 	Keypress: equal
+344.7609 	DATA 	Keypress: equal
+346.7636 	DATA 	Keypress: equal
+348.7572 	DATA 	Keypress: equal
+348.7601 	INFO 	Session finished normally.
