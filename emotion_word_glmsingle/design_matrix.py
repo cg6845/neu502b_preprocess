@@ -15,7 +15,7 @@ def fmri_output_to_design(subject_id: str,              # keep
                       TASK_OUTPUT_DIR: str,             # keep 
                       OUTPUT_DESIGN_MATRIX_DIR: str,    # keep
                       OUTPUT_STIMSET_DIR: str,          # potentially no need?
-                      fmri_run_duration: float,         # keep, should be adjusted to account for different lengths for each participant 
+                      fmri_run_duration_tr: int,         # keep, should be adjusted to account for different lengths for each participant 
                       stimset_name: str = "emotion_word",                
                       n_runs: int = 1,                  # keep? but always 1 
                       n_unique_stim: int = 24,          # keep 
@@ -23,8 +23,8 @@ def fmri_output_to_design(subject_id: str,              # keep
                       n_rep: int = 3,                   # keep 
                       timing_tolerance: float = 0.01,   # keep, should be lower 
                       task_duration: float = 328,
-                      stim_dur: float = 4,              # keep 
-                      isi_dur: float = 4,               # keep
+                      stim_dur: float = 2,              # keep 
+                      isi_dur: float = 2,               # keep
                       break_dur: float = 10,            # keep 
                       tr: float = 2,                    # keep 
                       save: bool = True,
@@ -39,14 +39,14 @@ def fmri_output_to_design(subject_id: str,              # keep
     :param OUTPUT_DESIGN_MATRIX_DIR: Path to save the design matrices
     :param OUTPUT_STIMSET_DIR: Path to save the stimsets
     :param stimset_name: Name of the stimset/experiment
-    :param fmri_run_duration: Expected duration of each run (in seconds)
+    :param fmri_run_duration_tr: Duration of each fMRI run (in TRs)
     :param n_runs: Number of runs (expected)
     :param n_unique_stim: Number of unique stimuli (expected)
     :param n_stim_per_run: Number of stimuli per run (expected)
     :param n_rep: Number of times each stimulus is repeated (expected)
     :param timing_tolerance: Tolerance for difference between expected and empirical timing (in seconds)
     :param task_duration: Expected duration of the task (in seconds)
-    :param stim_dur: Stimulus duration (sentence) (in seconds)
+    :param stim_dur: Stimulus duration (word) (in seconds)
     :param isi_dur: Inter-stimulus interval duration (in seconds)
     :param break_dur: Break duration (in seconds)
     :param tr: Repetition time (in seconds)
@@ -65,8 +65,8 @@ def fmri_output_to_design(subject_id: str,              # keep
     # Create n_runs lists of matrices size (trs_in_run, n_unique_stim)
     design_matrices = []
     for run in range(n_runs):
-        design_matrices.append(np.zeros((fmri_run_duration // tr, n_unique_stim)))
-    print(f'Initialized {n_runs} design matrices of size {fmri_run_duration} seconds by {n_unique_stim} unique stimuli')
+        design_matrices.append(np.zeros((fmri_run_duration_tr, n_unique_stim)))
+    print(f'Initialized {n_runs} design matrices of size {fmri_run_duration_tr} TRs by {n_unique_stim} unique stimuli')
 
     # Generate a simple savestr:
     savestr = f'{stimset_name}_{subject_id}'
@@ -77,8 +77,7 @@ def fmri_output_to_design(subject_id: str,              # keep
     # stimset_file = f"stimset_{stimset_name}_{subject_id}_all.csv" # Load the version with all the stimuli
     
     # stimset_all = pd.read_csv(join(STIMSET_DIR, stimset_file))
-    stimset_path = join(TASK_OUTPUT_DIR, stimset_name)
-    timing_table = pd.read_csv(join(stimset_path, stimset_file))
+    timing_table = pd.read_csv(join(TASK_OUTPUT_DIR, stimset_file))
 
                                     
     """
@@ -123,13 +122,13 @@ def fmri_output_to_design(subject_id: str,              # keep
 
 
         # Create a copy of the timing table with just the stimuli and calculate the onset time lag (expected - recorded)
-        timing_table_words = timing_table.copy(deep=True)[timing_table.copy(deep=True)['condition'] == 'emotion_word']
-        timing_table_words['onset_diff_recorded_time_onset'] = abs(timing_table_words['expected_onset'] - timing_table_words['adjusted_recorded_onset'])
+        timing_table_stim = timing_table.copy(deep=True)[timing_table.copy(deep=True)['condition'] == 'emotion_word']
+        timing_table_stim['expected_recorded_onset_diff'] = abs(timing_table_stim['expected_onset'] - timing_table_stim['adjusted_recorded_onset'])
 
 
         # Perform assertions against the expected params 
-        assert len(timing_table_words) == n_stim_per_run, f"Number of stimuli in {stimset_file} is not {n_stim_per_run}"
-        assert (np.diff(timing_table_words['trial'].values) == 1).all(), f"Trial IDs in {stimset_file} are not ascending and incrementing by 1"
+        assert len(timing_table_stim) == n_stim_per_run, f"Number of stimuli in {stimset_file} is not {n_stim_per_run}"
+        assert (np.diff(timing_table_stim['trial'].values) == 1).all(), f"Trial IDs in {stimset_file} are not ascending and incrementing by 1"
         
 #         # TO CHANGE -- DON'T NEED THIS
 
@@ -148,46 +147,43 @@ def fmri_output_to_design(subject_id: str,              # keep
 #         # (we've just asserted that the critical cols, e.g., sentence and item_id are identical) <- NOT DONE YET
 #         timing_table_sent = pd.merge(timing_table_sent, stimset[['item_id'] + cols_in_stimset_not_in_timing_table], on='item_id')
         
-#         # Add the unified timing table for the run to the overall one
-#         timing_table_stimset_across_runs.append(timing_table_sent)
+        # Add the unified timing table for the run to the overall one
+        timing_table_stimset_across_runs.append(timing_table_stim)
         
         print(f' == {stimset_file} passed assertions against the expected input == ')
         
-        # NOTE: CHANGES STOPPED HERE!!!
         
         """
         Check the timing in the timing table
         """
 
-        # TO CHANGE -- KEEP THIS BUT ADJUST
-
-        # Assert that onset and recorded_time_onset are no more than timing tolerance apart
-        if not (timing_table_sent['onset_diff_recorded_time_onset'] <= timing_tolerance).all():
-            print(f'WARNING: Timing in {output_file} is not precise enough: the max difference between onset and recorded_time_onset is {timing_table_sent["onset_diff_recorded_time_onset"].max()} seconds')
+        # Assert that expected onset and recorded onset are no more than timing tolerance apart
+        if not (timing_table_stim['expected_recorded_onset_diff'] <= timing_tolerance).all():
+            print(f'WARNING: Timing in {stimset_file} is not precise enough: the max difference between onset and recorded_time_onset is {timing_table_stim["expected_recorded_onset_diff"].max()} seconds')
         # Assert a larger latency just to make sure we catch any issues
-        assert ((timing_table_sent['onset_diff_recorded_time_onset'].values) <= timing_tolerance + 0.70).all(), f"Timing in {output_file} is not precise enough: the max difference between onset and recorded_time_onset is {timing_table_sent['onset_diff_recorded_time_onset'].max()} seconds"
-        assert ((timing_table.recorded_time_offset - timing_table.run_start_time.unique()[0]) == timing_table.offset).all(), f"Recorded time offset does not match intended offset"
+        assert ((timing_table_stim['expected_recorded_onset_diff'].values) <= timing_tolerance + 0.01).all(), f"Timing in {stimset_file} is not precise enough: the max difference between onset and recorded_time_onset is {timing_table_stim['expected_recorded_onset_diff'].max()} seconds"        
+        
         # Sum up the duration in timing table
         total_duration = timing_table['cond_duration'].sum()
-        # Assert that it is close to the code_end_time_relative_to_run_start
-        empirical_duration = timing_table['code_end_time_relative_to_run_start'].unique()
-        assert len(empirical_duration) == 1, f"More than one empirical duration in {output_file}"
+        # Assert that it is close to the code end time
+        empirical_duration = timing_table['adjusted_code_end_time'].unique()
+        assert len(empirical_duration) == 1, f"More than one empirical duration in {stimset_file}"
         empirical_duration = empirical_duration[0]
-        assert abs(total_duration - empirical_duration) <= timing_tolerance, f"Total duration in {output_file} is not precise enough"
+        assert abs(total_duration - empirical_duration) <= timing_tolerance, f"Total duration in {stimset_file} is not precise enough"
         # Assert the timing table duration matches the expected duration
-        assert total_duration == expected_duration, f"Total duration in {output_file} is not {expected_duration} seconds"
-        print(f'Total duration in {output_file} is {total_duration} seconds, which is close to the empirical duration {empirical_duration:.3f} seconds')
+        assert total_duration == task_duration, f"Total duration in {stimset_file} is not {task_duration} seconds"
+        print(f'Total duration in {stimset_file} is {total_duration} seconds, which is close to the empirical duration {empirical_duration:.3f} seconds')
 
-        print(f' == {output_file} passed timing check == ')
+        print(f' == {stimset_file} passed timing check == ')
         timing_table_across_runs.append(timing_table)
 
         
         """
         Make design matrix for GLMsingle:
-        Get them in GLMsingle design matrix format, where each row is TR=2. Mark a 1 on stimulus onset and next TR (since our stimuli are 4s, 2 TR).
-        Let’s use the item_ids I generated for this experiment (col = item_id) which go from 1 to 880. Those are the columns of the design matrix. (which, of course, we need to subtract by 1, because the cols in Python run from 0-399 and not 1-400).
+        Get them in GLMsingle design matrix format, where each row is TR=2. 
+        Stimuli are marked using word_id in the output spreadsheets, which go from 1 to 24. Those are the columns of the design matrix. (which, of course, we need to subtract by 1, because the cols in Python run from 0-23 and not 1-24).
 
-        So for each run, the design matrix will be [total_duration; n_unique_stim] [196; 880]
+        So for each run, the design matrix will be [fmri_run_duration_tr; n_unique_stim] [??; 24]
         """
 
         # TO CHANGE -- DON'T NEED SEPARATE RUNS 
@@ -195,24 +191,17 @@ def fmri_output_to_design(subject_id: str,              # keep
         run_id_python = run_idx - 1  # python indexed (i.e. we want to fill in the first one at index 0 and not 1). i.e. which design matrix to fill in
 
 
-        # TO CHANGE -- KEEP BUT ADJUST
-
-        # Iterate through timing_table_sent and for each value in the onset, add a 1 to the design matrix as col = item_id - 1
-        for stim in timing_table_sent.itertuples():
+        # Iterate through timing_table_stim and for each value in the onset, add a 1 to the design matrix as col = item_id - 1
+        for stim in timing_table_stim.itertuples():
             
-            # TO CHANGE -- BASICALLY CHANGE COLUMN NAMES ETC. BUT OTHERWISE KEEP EVERYTHING THE SAME 
-
-            onset = stim.onset # We already asserted that onset and recorded_time_onset are no more than timing tolerance apart, so we can just use onset
+            onset = stim.expected_onset # We already asserted that expected and recorded onset are no more than timing tolerance apart, so we can just use onset
             
-            item_id = stim.item_id 
-            if stimset_name == "ss_aud":
-                item_id = int(item_id.strip('ss').lstrip('0'))
+            item_id = stim.word_id 
             
             # Assertions to check the stimulus 
             assert stim.cond_duration == stim_dur, f"Stimulus duration does not match specified stim_dur"
-            assert stim.cond_expt == 'sentence', f"Stimulus is not a sentence"
+            assert stim.condition == 'emotion_word', f"Stimulus is not an emotion word"
             assert item_id <= n_unique_stim, f"Item ID is greater than the number of unique stimuli"
-            
             
             # Assert that onset and item_id are integers
             assert onset - int(onset) == 0, f"Onset is not an integer"
@@ -225,29 +214,26 @@ def fmri_output_to_design(subject_id: str,              # keep
             design_matrices[run_id_python][onset_tr, item_id - 1] = 1
             
 
-
         # Design matrix assertions
         # Check the sum of the design matrices. We expect the sum to be n_stim_per_run
         assert (np.sum(design_matrices[run_id_python]) == n_stim_per_run), f"Sum of design matrix is not {n_stim_per_run}"
 
-        # TO CHANGE -- ADJUST THIS FOR COLUMN NAMES ETC. 
-
-        # Using the timing_table with breaks, find the cond_expt == 'break' and those onsets
-        timing_table_break = timing_table[timing_table['cond_expt'] == 'break']
+        # Using the timing_table with breaks, find the condition == 'long_fixation' and those onsets
+        timing_table_break = timing_table[timing_table['condition'] == 'long_fixation']
         # Check that the design matrix has NO 1s at those onsets and cond_duration ahead
         for stim in timing_table_break.itertuples():
-            onset = stim.onset
+            onset = stim.expected_onset
             onset_tr = int(onset // tr)
             cond_duration = stim.cond_duration
             cond_duration_tr = int(cond_duration // tr)
             assert cond_duration == break_dur, f"Break duration is not {break_dur} seconds"
             assert (design_matrices[run_id_python][onset_tr:onset_tr+cond_duration_tr, :] == 0).all(), f"Design matrix has 1s at break onsets"            
             
-        # Using the timing_table with breaks, find the cond_expt == 'isi' and those onsets
-        timing_table_isi = timing_table[timing_table['cond_expt'] == 'isi']
+        # Using the timing_table with ITIs, find the condition == 'iti' and those onsets
+        timing_table_isi = timing_table[timing_table['condition'] == 'iti']
         # Check that the design matrix has NO 1s at those onsets and cond_duration ahead
         for stim in timing_table_isi.itertuples():
-            onset = stim.onset
+            onset = stim.expected_onset
             onset_tr = int(onset // tr)
             cond_duration = stim.cond_duration
             cond_duration_tr = int(cond_duration // tr)
@@ -259,13 +245,13 @@ def fmri_output_to_design(subject_id: str,              # keep
         time_axis = np.sum(design_matrices[run_id_python], axis=1)
         assert(np.sum(time_axis) == n_stim_per_run), f"Sum of design matrix time axis is not {n_stim_per_run}"
 
-        print(f' == {output_file} passed design matrix check == \n')
+        print(f' == {stimset_file} passed design matrix check == \n')
 
         # Plot example design matrix
         plt.figure(figsize=(20, 20))
         plt.imshow(design_matrices[run_id_python], interpolation='none')
         plt.title(f'example design matrix from run index {run_idx}', fontsize=18)
-        plt.xlabel(f'conditions (unique sentences: {n_unique_stim})', fontsize=18)
+        plt.xlabel(f'conditions (unique words: {n_unique_stim})', fontsize=18)
         plt.ylabel('time (assuming TR = 2s)', fontsize=18)
         plt.tight_layout()
         plt.show()
@@ -273,64 +259,49 @@ def fmri_output_to_design(subject_id: str,              # keep
 
         sys.stdout.flush()
 
+    # NOTE: CHANGES STOPPED HERE!!!
 
     # TIMING TABLE: Concatenate across runs
     timing_table_all_runs = pd.concat(timing_table_across_runs)
 
     # Assertions for timing_table_all_runs
-    assert len(timing_table_all_runs[timing_table_all_runs['cond_expt'] == 'sentence']) == n_stim_per_run * n_runs, f"Total number of stimuli in all runs is not {n_stim_per_run * n_runs}"
-    if stimset_name != 'vvsa':
-        assert timing_table_all_runs.sentence.nunique() == n_unique_stim, f"Total number of unique stimuli in all runs is not {n_unique_stim}"
-    assert len(timing_table_all_runs[timing_table_all_runs['cond_expt'] == 'sentence'].run_id.unique()) == n_runs, f"Total number of runs is not {n_runs}"
-    # checks that run_start_time is ascending (to ensure that runs were in actually started in consecutive order)
-    assert (np.sort(timing_table_all_runs.run_start_time.values) == timing_table_all_runs.run_start_time.values).all(), f"Run start times in timing_table_all_runs are not ascending"
+    assert len(timing_table_all_runs[timing_table_all_runs['condition'] == 'emotion_word']) == n_stim_per_run * n_runs, f"Total number of stimuli in all runs is not {n_stim_per_run * n_runs}"
+    assert timing_table_all_runs.word.nunique() == n_unique_stim, f"Total number of unique stimuli in all runs is not {n_unique_stim}"
 
     # TIMING TABLE STIMSET: Concatenate across runs
     timing_table_stimset_all_runs = pd.concat(timing_table_stimset_across_runs)
-    timing_table_stimset_all_runs['UID'] = timing_table_stimset_all_runs['UID'].astype(str)
-    timing_table_stimset_all_runs['UID_session'] = timing_table_stimset_all_runs['UID'].astype(str) + '_' + timing_table_stimset_all_runs['session'].astype(str)
-    first_cols = ['item_id', 'sentence', 'condition', 'UID', 'run_id']
-    timing_table_stimset_all_runs = timing_table_stimset_all_runs[first_cols + [col for col in timing_table_stimset_all_runs.columns if col not in first_cols]]
+    timing_table_stimset_all_runs['subid'] = timing_table_stimset_all_runs['subid'].astype(str)
 
     # Assertions for timing_table_stimset_all_runs
     assert len(timing_table_stimset_all_runs) == n_stim_per_run * n_runs, f"Total number of stimuli in all runs is not {n_stim_per_run * n_runs}"
-    if stimset_name != 'vvsa':
-        assert timing_table_stimset_all_runs.sentence.nunique() == n_unique_stim, f"Total number of unique stimuli in all runs is not {n_unique_stim}"
+    assert timing_table_stimset_all_runs.word.nunique() == n_unique_stim, f"Total number of unique stimuli in all runs is not {n_unique_stim}"
     
-    stimset_full = pd.read_csv(join(STIMSET_DIR, stimset_name, f"stimset_{stimset_name}_{subject_id}_all.csv")) # Load coherent, full stimset for assertion
     
-    # NOTE: the following assertions are problematic if the order of runs deviated from the planned order
-    # TODO: figure out how to make these assertions not dependent on the order 
-    # assert (stimset_full.item_id.values == timing_table_stimset_all_runs.item_id.values).all(), f"Item IDs in timing_table_stimset_all_runs do not match the item IDs in stimset"
-    # assert (stimset_full.sentence.values == timing_table_stimset_all_runs.sentence.values).all(), f"Sentences in timing_table_stimset_all_runs do not match the sentences in stimset"   
-    # assert (stimset_full.run_id.values == timing_table_stimset_all_runs.run_id.values).all(), f"Run IDs in timing_table_stimset_all_runs do not match the run IDs in stimset"
-    # assert (np.sort(timing_table_stimset_all_runs.run_id.values) == timing_table_stimset_all_runs.run_id.values).all(), f"Run IDs in timing_table_stimset_all_runs do not match the run IDs in timing_table_stimset_across_runs"
-
     if save:
         # Save timing table with all trials
-        if not os.path.exists(join(OUTPUT_STIMSET_DIR, stimset_name, f"timing_table_{savestr}.csv")) or overwrite:
-            timing_table_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, stimset_name, f"timing_table_{savestr}.csv"), index=False)
-            print(f'Saved timing table to {OUTPUT_STIMSET_DIR}/{stimset_name}/timing_table_{savestr}.csv')
-        elif os.path.exists(join(OUTPUT_STIMSET_DIR, stimset_name, f"timing_table_{savestr}.csv")) and not overwrite:
-            print(f"File {OUTPUT_STIMSET_DIR}/{stimset_name}/timing_table_{savestr}.csv already exists. Set overwrite=True to overwrite")
-        elif os.path.exists(join(OUTPUT_STIMSET_DIR, stimset_name, f"timing_table_{savestr}.csv")) and overwrite:
-            timing_table_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, stimset_name, f"timing_table_{savestr}.csv"), index=False)
-            print(f'Overwrote timing table to {OUTPUT_STIMSET_DIR}/{stimset_name}/timing_table_{savestr}.csv')
+        if not os.path.exists(join(OUTPUT_STIMSET_DIR, f"timing_table_{savestr}.csv")) or overwrite:
+            timing_table_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, f"timing_table_{savestr}.csv"), index=False)
+            print(f'Saved timing table to {OUTPUT_STIMSET_DIR}/timing_table_{savestr}.csv')
+        elif os.path.exists(join(OUTPUT_STIMSET_DIR, f"timing_table_{savestr}.csv")) and not overwrite:
+            print(f"File {OUTPUT_STIMSET_DIR}/timing_table_{savestr}.csv already exists. Set overwrite=True to overwrite")
+        elif os.path.exists(join(OUTPUT_STIMSET_DIR, f"timing_table_{savestr}.csv")) and overwrite:
+            timing_table_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, f"timing_table_{savestr}.csv"), index=False)
+            print(f'Overwrote timing table to {OUTPUT_STIMSET_DIR}/timing_table_{savestr}.csv')
 
         # Save stimset with all trials
-        if not os.path.exists(join(OUTPUT_STIMSET_DIR, stimset_name, f"stimset_{savestr}.csv")) or overwrite:
-            timing_table_stimset_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, stimset_name, f"stimset_{savestr}.csv"), index=False)
-            print(f'Saved stimset to {OUTPUT_STIMSET_DIR}/{stimset_name}/stimset_{savestr}.csv')
-        elif os.path.exists(join(OUTPUT_STIMSET_DIR, stimset_name, f"stimset_{savestr}.csv")) and not overwrite:
-            print(f"File {OUTPUT_STIMSET_DIR}/{stimset_name}/stimset_{savestr}.csv already exists. Set overwrite=True to overwrite")
-        elif os.path.exists(join(OUTPUT_STIMSET_DIR, stimset_name, f"stimset_{savestr}.csv")) and overwrite:
-            timing_table_stimset_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, stimset_name, f"stimset_{savestr}.csv"), index=False)
-            print(f'Overwrote stimset to {OUTPUT_STIMSET_DIR}/{stimset_name}/stimset_{savestr}.csv')
+        if not os.path.exists(join(OUTPUT_STIMSET_DIR, f"stimset_{savestr}.csv")) or overwrite:
+            timing_table_stimset_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, f"stimset_{savestr}.csv"), index=False)
+            print(f'Saved stimset to {OUTPUT_STIMSET_DIR}/stimset_{savestr}.csv')
+        elif os.path.exists(join(OUTPUT_STIMSET_DIR, f"stimset_{savestr}.csv")) and not overwrite:
+            print(f"File {OUTPUT_STIMSET_DIR}/stimset_{savestr}.csv already exists. Set overwrite=True to overwrite")
+        elif os.path.exists(join(OUTPUT_STIMSET_DIR, f"stimset_{savestr}.csv")) and overwrite:
+            timing_table_stimset_all_runs.to_csv(join(OUTPUT_STIMSET_DIR, f"stimset_{savestr}.csv"), index=False)
+            print(f'Overwrote stimset to {OUTPUT_STIMSET_DIR}/stimset_{savestr}.csv')
 
 
     # DESIGN MATRICES: Check all design matrices
     # Check the sum of the design matrices. We expect the sum to be n_unique_stim
-    assert (np.sum(design_matrices) == n_unique_stim), f"Sum of design matrices is not 2*{n_unique_stim * n_rep}"
+    assert (np.sum(design_matrices) == n_unique_stim * n_rep), f"Sum of design matrices is not {n_unique_stim * n_rep}"
 
     # Stack them such that we have n_runs * total_duration by n_unique_stim matrix
     design_matrices_stacked = np.vstack(design_matrices)
@@ -339,21 +310,29 @@ def fmri_output_to_design(subject_id: str,              # keep
 
     if save:
         # Save the design_matrices list as pickle
-        if not os.path.exists(join(OUTPUT_DESIGN_MATRIX_DIR, stimset_name, f"design_matrices_{savestr}.pkl")) or overwrite:
-            with open(join(OUTPUT_DESIGN_MATRIX_DIR, stimset_name, f"design_matrices_{savestr}.pkl"), 'wb') as f:
+        if not os.path.exists(join(OUTPUT_DESIGN_MATRIX_DIR, f"design_matrices_{savestr}.pkl")) or overwrite:
+            with open(join(OUTPUT_DESIGN_MATRIX_DIR, f"design_matrices_{savestr}.pkl"), 'wb') as f:
                 pickle.dump(design_matrices, f)
-            print(f'Saved design matrices to {OUTPUT_DESIGN_MATRIX_DIR}/{stimset_name}/design_matrices_{savestr}.pkl')
-        elif os.path.exists(join(OUTPUT_DESIGN_MATRIX_DIR, stimset_name, f"design_matrices_{savestr}.pkl")) and not overwrite:
-            print(f"File {OUTPUT_DESIGN_MATRIX_DIR}/{stimset_name}/design_matrices_{savestr}.pkl already exists. Set overwrite=True to overwrite")
-        elif os.path.exists(join(OUTPUT_DESIGN_MATRIX_DIR, stimset_name, f"design_matrices_{savestr}.pkl")) and overwrite:
-            with open(join(OUTPUT_DESIGN_MATRIX_DIR, stimset_name, f"design_matrices_{savestr}.pkl"), 'wb') as f:
+            print(f'Saved design matrices to {OUTPUT_DESIGN_MATRIX_DIR}/design_matrices_{savestr}.pkl')
+        elif os.path.exists(join(OUTPUT_DESIGN_MATRIX_DIR, f"design_matrices_{savestr}.pkl")) and not overwrite:
+            print(f"File {OUTPUT_DESIGN_MATRIX_DIR}/design_matrices_{savestr}.pkl already exists. Set overwrite=True to overwrite")
+        elif os.path.exists(join(OUTPUT_DESIGN_MATRIX_DIR, f"design_matrices_{savestr}.pkl")) and overwrite:
+            with open(join(OUTPUT_DESIGN_MATRIX_DIR, f"design_matrices_{savestr}.pkl"), 'wb') as f:
                 pickle.dump(design_matrices, f)
-            print(f'Overwrote design matrices to {OUTPUT_DESIGN_MATRIX_DIR}/{stimset_name}/design_matrices_{savestr}.pkl')
+            print(f'Overwrote design matrices to {OUTPUT_DESIGN_MATRIX_DIR}/design_matrices_{savestr}.pkl')
 
-            
+
             
 ### RUN THE FUNCTION 
 # uncomment appropriate function call based on experiment/task  
+
+fmri_output_to_design('sub-002',                 # TO CHANGE FOR EACH SUBJECT
+                      '/Users/bianca/Desktop/NEU502B/neu502b_fmri/fMRI_task_output_logs/emotion_word_task', 
+                      '/Users/bianca/Desktop/NEU502B/neu502b_fmri/emotion_word_glmsingle/design_matrices', 
+                      '/Users/bianca/Desktop/NEU502B/neu502b_fmri/emotion_word_glmsingle/emotion_word_stim', 
+                      fmri_run_duration_tr=164)  # TO CHANGE FOR EACH SUBJECT
+
+
 
 ## lbllm adult/child  
 # fmri_output_to_design('PED003','/nese/mit/group/evlab/u/holson/EXPT_LBLLM/analyses/task_output','/nese/mit/group/evlab/u/holson/EXPT_LBLLM/analyses/stimuli','/nese/mit/group/evlab/u/holson/EXPT_LBLLM/analyses/glmsingle/design_matrices','/nese/mit/group/evlab/u/holson/EXPT_LBLLM/analyses/glmsingle/stimset_outputs','lbllm')
