@@ -326,11 +326,12 @@ def fmri_output_to_design(subject_id: str,              # keep
 ### RUN THE FUNCTION 
 # uncomment appropriate function call based on experiment/task  
 
-fmri_output_to_design('sub-002',                 # TO CHANGE FOR EACH SUBJECT
+fmri_output_to_design('sub-pseudo003',                 # TO CHANGE FOR EACH SUBJECT
                       '/Users/bianca/Desktop/NEU502B/neu502b_fmri/fMRI_task_output_logs/emotion_word_task', 
                       '/Users/bianca/Desktop/NEU502B/neu502b_fmri/emotion_word_glmsingle/design_matrices', 
-                      '/Users/bianca/Desktop/NEU502B/neu502b_fmri/emotion_word_glmsingle/emotion_word_stim', 
-                      fmri_run_duration_tr=164)  # TO CHANGE FOR EACH SUBJECT
+                      '/Users/bianca/Desktop/NEU502B/neu502b_fmri/emotion_word_glmsingle/emotion_word_stim',
+                      overwrite=True,  
+                      fmri_run_duration_tr=169)  # TO CHANGE FOR EACH SUBJECT
 
 
 

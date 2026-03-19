@@ -1,4 +1,4 @@
-random_subid,subid ,condition,cond_duration,trial,word_id,word,category_num,category_arousal,category_valence,expected_onset,expected_offset,recorded_onset,trigger_start_time,adjusted_recorded_onset,adjusted_calc_offset,code_end_time,adjusted_code_end_time
+random_subid,subid,condition,cond_duration,trial,word_id,word,category_num,category_arousal,category_valence,expected_onset,expected_offset,recorded_onset,trigger_start_time,adjusted_recorded_onset,adjusted_calc_offset,code_end_time,adjusted_code_end_time
 b686f037-900c-458c-a083-fa7c53e02983,sub-pseudo004,long_fixation,10,NaN,NaN,NaN,NaN,NaN,NaN,0,10,22.6676,22.6637,0.0039,10.0039,350.6649,328.0012
 b686f037-900c-458c-a083-fa7c53e02983,sub-pseudo004,emotion_word,2,0,1,depressed,3,low,low,10,12,32.668,22.6637,10.0043,12.0043,350.6649,328.0012
 b686f037-900c-458c-a083-fa7c53e02983,sub-pseudo004,iti,2,NaN,NaN,NaN,NaN,NaN,NaN,12,14,34.668,22.6637,12.0043,14.0043,350.6649,328.0012
