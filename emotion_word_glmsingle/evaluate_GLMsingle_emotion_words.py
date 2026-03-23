@@ -6,8 +6,8 @@ Run the GLMsingle on emotion words data.
 
 
 ## TODO:
-# Figure out package stuff on the cluster
-# Clone GLMsingle repo on the cluster 
+# Figure out package stuff on the cluster - theoretically done 
+# Clone GLMsingle repo on the cluster - done 
 # Change paths and filenames throughout - theoretically done (need to double check)
 # Adapt to actually use cross-validation for GLMsingle - theoretically done (need to double check)
 # Change any other parameters as needed - theoretically done (need to double check)
@@ -79,8 +79,7 @@ def main(raw_args=None):
     from glmsingle.glmsingle import GLM_single
     plot = False
     
-    
-    # TO CHANGE: set different paths 
+     
 
     ### Set paths ###
     user = getpass.getuser()
@@ -100,7 +99,6 @@ def main(raw_args=None):
 
     ### Arguments for GLMsingle ###
 
-    # TO CHANGE: modify parameters to use default behavior/cross-validation instead of specifying values
 
     if pcstop is not None:
         pcstop = -args.pcstop
@@ -138,7 +136,6 @@ def main(raw_args=None):
     print(vars(args))
     print('*' * 40)
 
-    # TO CHANGE: adjust based on what params are actually kept/relevant
     print(f'\nSave output dir: {OUTPUTDIR}')
     print(f'\nStimset dir: {args.STIMSET_DIR}')
     print(f'\nDesign matrices dir: {args.DESIGN_MATRIX_DIR}')
