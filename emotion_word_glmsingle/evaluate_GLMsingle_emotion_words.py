@@ -48,15 +48,13 @@ def str2none(v):
 def main(raw_args=None):
     parser = argparse.ArgumentParser(description='Run GLMsingle (version: XX')
     parser.add_argument('--UID', default='sub-001', type=str, help='UID str')
-    parser.add_argument('--FL', default='gs', type=str, help='FL')          # not needed?
     parser.add_argument('--stimdur', default=2, type=int, help='Stimulus duration in seconds')
     parser.add_argument('--tr', default=2, type=int, help='TR sampling rate')
-    parser.add_argument('--preproc', default='swr', type=str,
-                        help='Which preprocessing pipeline to use. Default is swr.')        # not needed -- about preprocessing before GLMsingle
-    parser.add_argument('--pcstop', default=5, type=int,
-                        help='How many PCs to remove')                      # probably not needed -- can just use default value for GLMsingle
-    parser.add_argument('--fracs', default=0.05, type=float,
-                        help='Fraction of ridge regularization to use')     # not needed -- just use default behavior with cross-validation 
+    parser.add_argument('--n_runs', default=1, type=int, help='Number of runs.')
+    parser.add_argument('--pcstop', 
+                        help='How many PCs to remove if not performing cross-validation. If None, uses standad GLMsingle parameters to perform cross-validation')                      
+    parser.add_argument('--fracs', 
+                        help='Fraction of ridge regularization to use if not performing cross-validation. If None, uses standad GLMsingle parameters to perform cross-validation')      
     parser.add_argument('--want_library', default=1, type=int,
                         help='Whether we want to do HRF library estimation. Set to 1 for True, 0 for False')
     parser.add_argument('--test', default=False, type=bool,
@@ -64,15 +62,17 @@ def main(raw_args=None):
     parser.add_argument('--verbose', default=False, type=bool,
                         help='Whether to print output and not create a log file')
     parser.add_argument('--stimset_fname', default='emotion_word', type=str,
-                        help='Stimset filename to use')                     # either remove or modify behavior when this is used
-    parser.add_argument('--STIMSET_DIR', default='/nese/mit/group/evlab/u/holson/EXPT_LBLLM/analyses/stimuli',
-                        type=str, help='Directory to fetch stimsets from with run and dicom path into')         # probably not needed
+                        help='Stimset filename to use')                     
+    parser.add_argument('--STIMSET_DIR', default='/usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/emotion_word_stim',
+                        type=str, help='Directory to fetch stimsets from with run and dicom path into')         
     parser.add_argument('--DESIGN_MATRIX_DIR', default='/usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/design_matrices',
-                        type=str, help='Directory to fetch design matrices from')                               # TO CHANGE
+                        type=str, help='Directory to fetch design matrices from')                               
     parser.add_argument('--overwrite', default=True, type=bool,
                         help='Whether to overwrite results in case outputdir already exists')       
     parser.add_argument('--external_output_root', default='/usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle', type=str2none,
-                        help='If not None, supply a path to a directory to save outputs to')                    # TO CHANGE
+                        help='If not None, supply a path to a directory to save outputs to')                    
+    parser.add_argument('--FMRI_DATA_DIR', default = '/usr/people/cg6845/neu502b/preprocess/502b_language/pygers_workshop/sample_study/data/bids/derivatives/fmriprep',
+                        help='Directory where to fetch fMRI data from')
     args = parser.parse_args(raw_args)
 
     import glmsingle
@@ -96,42 +96,49 @@ def main(raw_args=None):
     if args.external_output_root is None:
         output_root = join(root, 'output_glmsingle')
     else:
-        output_root = args.external_output_root
+        output_root = args.external_output_root    
 
     ### Arguments for GLMsingle ###
 
     # TO CHANGE: modify parameters to use default behavior/cross-validation instead of specifying values
 
-    pcstop = -args.pcstop
+    if pcstop is not None:
+        pcstop = -args.pcstop
+    else:
+        pcstop = args.pcstop
+
     if pcstop == 0:
         pcstop = '-0'  # make sure the string names are correct!
     fracs = args.fracs
 
-    preproc = args.preproc
+    ### Set output, log, and MRI data directories ###
 
-    ### Set output and log directories ###
-
-    # TO CHANGE: modify output and naming conventions
-
-    UID_str = f'{args.UID.zfill(4)}'
-    identifier = f'preproc-{preproc}_pcstop{pcstop}_fracs-{fracs}_UID-{UID_str}'
+    UID = args.UID
+    identifier = f'UID-{UID}'
     if args.want_library == 0:
         identifier += '_noHRF' # Run without HRF library
 
     OUTPUTDIR = output_root
     LOGDIR = join(root, 'logs')
 
+
     if not args.verbose:
         date = datetime.datetime.now().strftime("%Y%m%d-%T")
         sys.stdout = open(
             join(LOGDIR, f'eval_{args.stimset_fname}_{identifier}_{date}.log'), 'a+')
+
+
+    # Path for accessing fMRI data
+    FMRI_DATA_DIR = join(args.FMRI_DATA_DIR, UID, 'ses-01/func')
+    fmri_data_fname = f"{UID}_ses-01_task-langXtask_run-1_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz"
+    fmri_data_path = join(FMRI_DATA_DIR, fmri_data_fname)
+    
 
     print('*' * 40)
     print(vars(args))
     print('*' * 40)
 
     # TO CHANGE: adjust based on what params are actually kept/relevant
-    print(f'Preprocessing pipeline: {preproc} with {pcstop} PCs and {fracs} fracridge')
     print(f'\nSave output dir: {OUTPUTDIR}')
     print(f'\nStimset dir: {args.STIMSET_DIR}')
     print(f'\nDesign matrices dir: {args.DESIGN_MATRIX_DIR}')
@@ -144,70 +151,69 @@ def main(raw_args=None):
 
 
     # Design matrix
-    design_fname = f'design_matrices_{args.stimset_fname}_{UID_str}_all_sessions.pkl'
-    design = pd.read_pickle(join(args.DESIGN_MATRIX_DIR, args.stimset_fname, design_fname))
+    design_fname = f'design_matrices_{args.stimset_fname}_{UID}.pkl'
+    design = pd.read_pickle(join(args.DESIGN_MATRIX_DIR, design_fname))
 
     # Associated stimset
-    stimset_fname = f'stimset_{args.stimset_fname}_{UID_str}_all.csv'
-    stimset = pd.read_csv(join(args.STIMSET_DIR, args.stimset_fname, stimset_fname))
+    stimset_fname = f'stimset_{args.stimset_fname}_{UID}.csv'
+    stimset = pd.read_csv(join(args.STIMSET_DIR, stimset_fname))
 
     ## Assertions
-    # Assert that the design matrix has the correct number of runs
-    assert len(design) == stimset.run_id.nunique(), "design matrix does not have the same number of runs as the stimset"
     # Assert that all design matrices have the same shape
     assert len(np.unique([x.shape[0] for x in design])) == 1, "design matrices for each run do not have the same shape"
     assert len(np.unique([x.shape[1] for x in design])) == 1, "design matrices for each run do not have the same shape"
-        # if UID_str != '1074': # was collected with IPS = 171 -- LEAVING FOR PARTIAL RUNS LATER
-    # Assert that the design matrix has expected width (based on IPS)
-    assert design[0].shape[0] == stimset.expected_IPS.values[0], "design matrix does not have expected width (IPS)"
-    # Assert that the first design matrix col item is the same as the first stimset item
-    assert design[0][5, :].argmax() == stimset.iloc[0, :].item_id - 1, "first chronological item in design matrix does not match first stimset item"
+    # # Assert that the design matrix has expected width (based on IPS)
+    # assert design[0].shape[0] == stimset.expected_IPS.values[0], "design matrix does not have expected width (IPS)"
+    # # Assert that the first design matrix col item is the same as the first stimset item
+    # assert design[0][5, :].argmax() == stimset.iloc[0, :].item_id - 1, "first chronological item in design matrix does not match first stimset item"
 
 
     ### Load data ###
     data = []
-    session_num_for_sessionindicator = []
 
-    # Iterate through the runs
-    _, idx = np.unique(stimset.run_idx.values, return_index=True)
-    run_ids = stimset.run_idx.values[np.sort(idx)]
-    assert len(run_ids) == len(design), "number of run ids in stimset does not match number of runs in design matrix"
+    ## NOT NEEDED
 
-    print_cols = ['run_id', 'run_idx', 'session_id', 'dicomnumber', 'dicomid', 'dicom_path', f'nii_{args.preproc}_path',
-                  'expected_IPS']
+    # # Iterate through the runs
+    # _, idx = np.unique(stimset.run_idx.values, return_index=True)
+    # run_ids = stimset.run_idx.values[np.sort(idx)]
+    # assert len(run_ids) == len(design), "number of run ids in stimset does not match number of runs in design matrix"
+
+    # print_cols = ['run_id', 'run_idx', 'session_id', 'dicomnumber', 'dicomid', 'dicom_path', f'nii_{args.preproc}_path',
+    #               'expected_IPS']
+
+    n_runs = args.n_runs
 
     # For each run, load the nii file 
-    for i, run_id in enumerate(run_ids):
+    for i in range(n_runs):
         if args.test:
             if i == 1:
                 break
         
-        stimset_run = stimset[stimset.run_idx == run_id]
+        # stimset_run = stimset[stimset.run_idx == run_id]
 
-        ## Find the unique session number for the run and add it to the session indicator
-        unique_session_num = np.unique(stimset_run['session_id'].values)
-        # Check that there is only one session number per run
-        assert len(unique_session_num) == 1, f"there is more than one unique session number for run_id {run_id}"
-        session_num = int(unique_session_num[0])
-        session_num_for_sessionindicator.append(session_num)
+        # ## Find the unique session number for the run and add it to the session indicator
+        # unique_session_num = np.unique(stimset_run['session_id'].values)
+        # # Check that there is only one session number per run
+        # assert len(unique_session_num) == 1, f"there is more than one unique session number for run_id {run_id}"
+        # session_num = int(unique_session_num[0])
 
-        ## Find the unique nii paths for the run
-        unique_nii_paths = np.unique(stimset_run[f'nii_{args.preproc}_path'].values)
-        # Check that there is only one unique nii path per run
-        assert len(unique_nii_paths) == 1, f"there is more than one unique nii path for run_id {run_id}"
-        nii_path = unique_nii_paths[0]
+        # ## Find the unique nii paths for the run
+        # unique_nii_paths = np.unique(stimset_run[f'nii_{args.preproc}_path'].values)
+        # # Check that there is only one unique nii path per run
+        # assert len(unique_nii_paths) == 1, f"there is more than one unique nii path for run_id {run_id}"
+        # nii_path = unique_nii_paths[0]
 
-        ## Print out the columns for the stimset for checking/print purposes
-        df_print = stimset_run[print_cols]
-        # Check that there is only one unique value for the run in each of the print_cols
-        assert len(df_print.drop_duplicates()) == 1, f"there is more than one unique value in stimset columns that should have one value per run for run_id {run_id}"
-        vals_print = df_print.values[0]
+        # ## Print out the columns for the stimset for checking/print purposes
+        # df_print = stimset_run[print_cols]
+        # # Check that there is only one unique value for the run in each of the print_cols
+        # assert len(df_print.drop_duplicates()) == 1, f"there is more than one unique value in stimset columns that should have one value per run for run_id {run_id}"
+        # vals_print = df_print.values[0]
 
-        print()
-        print(dict(zip(print_cols, vals_print)))
+        # print()
+        # print(dict(zip(print_cols, vals_print)))
 
         ## Load the nii data
-        file = np.array(nib.load(nii_path).dataobj)
+        file = np.array(nib.load(fmri_data_path).dataobj)
         file_orig = copy.deepcopy(file)
 
         ## Assert that the length of the nii file matches the design matrix width
@@ -272,11 +278,12 @@ def main(raw_args=None):
     # and also save them to the disk
     opt['wantfileoutputs'] = [1, 1, 1, 1]
     opt['wantmemoryoutputs'] = [1, 1, 1, 1]
-    opt['sessionindicator'] = session_num_for_sessionindicator
 
     # add changing parameters
-    opt['pcstop'] = pcstop
-    opt['fracs'] = fracs
+    if pcstop is not None:
+        opt['pcstop'] = pcstop
+    if fracs is not None:
+        opt['fracs'] = fracs
 
     # add wanthdf5 flag
     opt['wanthdf5'] = 1
