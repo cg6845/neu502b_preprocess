@@ -8,9 +8,9 @@ Run the GLMsingle on emotion words data.
 ## TODO:
 # Figure out package stuff on the cluster
 # Clone GLMsingle repo on the cluster 
-# Change paths and filenames throughout 
-# Adapt to actually use cross-validation for GLMsingle
-# Change any other parameters as needed
+# Change paths and filenames throughout - theoretically done (need to double check)
+# Adapt to actually use cross-validation for GLMsingle - theoretically done (need to double check)
+# Change any other parameters as needed - theoretically done (need to double check)
 
 
 import numpy as np
