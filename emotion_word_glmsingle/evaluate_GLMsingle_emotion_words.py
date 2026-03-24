@@ -114,9 +114,9 @@ def main(raw_args=None):
     UID = args.UID
     identifier = f'UID-{UID}'
     if pcstop is not None:
-        identifier += f"pcstop{pcstop}"
+        identifier += f"_pcstop{pcstop}"
     if fracs is not None:
-        identifier += f"fracs-{fracs}"
+        identifier += f"_fracs-{fracs}"
     if args.want_library == 0:
         identifier += '_noHRF' # Run without HRF library
 
