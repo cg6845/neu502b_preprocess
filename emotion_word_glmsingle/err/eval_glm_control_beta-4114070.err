@@ -1,0 +1,11 @@
+/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py:213: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+  file = np.array(nib.load(fmri_data_path).dataobj)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:651: UserWarning: Warning: You have specified trial onsets that occur less than 8 seconds from the end of at least one of the runs. This may cause estimation problems! As a solution, consider simply omitting specification of these ending trials from the original design matrix.
+  warnings.warn(msg)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:657: UserWarning: None of your conditions occur in more than one run. Are you sure this is what you intend?
+  warnings.warn(msg)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:667: UserWarning: Since there are no repeats, standard cross-validation usage of <wantglmdenoise> cannot be performed. Setting <wantglmdenoise> to 0.
+  warnings.warn(msg)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:674: UserWarning: Since there are no repeats, standard cross-validation usage of <wantfracridge> cannot be performed. Setting <wantfracridge> to 0.
+  warnings.warn(msg)
+chunks:   0%|          | 0/12 [00:00<?, ?it/s]chunks:   8%|▊         | 1/12 [00:08<01:34,  8.55s/it]chunks:  17%|█▋        | 2/12 [00:17<01:25,  8.53s/it]chunks:  25%|██▌       | 3/12 [00:25<01:16,  8.51s/it]chunks:  33%|███▎      | 4/12 [00:33<01:07,  8.46s/it]chunks:  42%|████▏     | 5/12 [00:42<00:59,  8.48s/it]chunks:  50%|█████     | 6/12 [00:50<00:50,  8.45s/it]chunks:  58%|█████▊    | 7/12 [00:57<00:39,  7.97s/it]chunks:  67%|██████▋   | 8/12 [01:04<00:30,  7.70s/it]chunks:  75%|███████▌  | 9/12 [01:12<00:22,  7.52s/it]chunks:  83%|████████▎ | 10/12 [01:19<00:14,  7.42s/it]chunks:  92%|█████████▏| 11/12 [01:26<00:07,  7.36s/it]chunks: 100%|██████████| 12/12 [01:33<00:00,  7.30s/it]chunks: 100%|██████████| 12/12 [01:33<00:00,  7.81s/it]

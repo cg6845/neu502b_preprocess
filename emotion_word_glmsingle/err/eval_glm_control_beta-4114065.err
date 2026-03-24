@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 325, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 125, in main
+    sys.stdout = open(
+                 ~~~~^
+        join(LOGDIR, f'eval_{args.stimset_fname}_{identifier}_{date}.log'), 'a+')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/logs/eval_emotion_word_UID-sub-001_20260324-12:51:21.log'
