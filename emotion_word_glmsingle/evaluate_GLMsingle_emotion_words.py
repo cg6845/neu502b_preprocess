@@ -51,9 +51,9 @@ def main(raw_args=None):
     parser.add_argument('--stimdur', default=2, type=int, help='Stimulus duration in seconds')
     parser.add_argument('--tr', default=2, type=int, help='TR sampling rate')
     parser.add_argument('--n_runs', default=1, type=int, help='Number of runs.')
-    parser.add_argument('--pcstop', default = None, 
+    parser.add_argument('--pcstop', default = 5, 
                         help='How many PCs to remove if not performing cross-validation. If None, uses standad GLMsingle parameters to perform cross-validation')                      
-    parser.add_argument('--fracs', default = None, 
+    parser.add_argument('--fracs', default = 0.05, 
                         help='Fraction of ridge regularization to use if not performing cross-validation. If None, uses standad GLMsingle parameters to perform cross-validation')      
     parser.add_argument('--want_library', default=1, type=int,
                         help='Whether we want to do HRF library estimation. Set to 1 for True, 0 for False')
@@ -113,10 +113,15 @@ def main(raw_args=None):
 
     UID = args.UID
     identifier = f'UID-{UID}'
+    if pcstop is not None:
+        identifier += f"pcstop{pcstop}"
+    if fracs is not None:
+        identifier += f"fracs-{fracs}"
     if args.want_library == 0:
         identifier += '_noHRF' # Run without HRF library
 
-    OUTPUTDIR = output_root
+    OUTPUTDIR = join(output_root,
+                     f'output_glmsingle_{identifier}')
     LOGDIR = join(root, 'logs')
 
 
