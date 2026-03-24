@@ -51,9 +51,9 @@ def main(raw_args=None):
     parser.add_argument('--stimdur', default=2, type=int, help='Stimulus duration in seconds')
     parser.add_argument('--tr', default=2, type=int, help='TR sampling rate')
     parser.add_argument('--n_runs', default=1, type=int, help='Number of runs.')
-    parser.add_argument('--pcstop', 
+    parser.add_argument('--pcstop', default = None, 
                         help='How many PCs to remove if not performing cross-validation. If None, uses standad GLMsingle parameters to perform cross-validation')                      
-    parser.add_argument('--fracs', 
+    parser.add_argument('--fracs', default = None, 
                         help='Fraction of ridge regularization to use if not performing cross-validation. If None, uses standad GLMsingle parameters to perform cross-validation')      
     parser.add_argument('--want_library', default=1, type=int,
                         help='Whether we want to do HRF library estimation. Set to 1 for True, 0 for False')
