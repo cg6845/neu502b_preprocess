@@ -1,0 +1,121 @@
+****************************************
+{'UID': 'sub-002', 'stimdur': 2, 'tr': 2, 'n_runs': 1, 'pcstop': 5, 'fracs': 0.05, 'want_library': 1, 'test': False, 'verbose': False, 'stimset_fname': 'emotion_word', 'STIMSET_DIR': '/usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/emotion_word_stim', 'DESIGN_MATRIX_DIR': '/usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/design_matrices', 'overwrite': True, 'external_output_root': '/usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle', 'FMRI_DATA_DIR': '/usr/people/cg6845/neu502b/preprocess/502b_language/pygers_workshop/sample_study/data/bids/derivatives/fmriprep'}
+****************************************
+
+Save output dir: /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle/output_glmsingle_UID-sub-002_pcstop-5_fracs-0.05
+
+Stimset dir: /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/emotion_word_stim
+
+Design matrices dir: /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/design_matrices
+
+Log dir: /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/logs
+
+Number of runs in data: 1.
+Shape of Images (brain XYZ and TR): (78, 93, 78, 164)
+Number of runs in design matrix: 1, with unique number of TRs across runs: [164]
+and unique number of conditions: [24]
+TR: 2 and stimulus duration (in seconds): 2
+There are 1 runs in total
+
+N = 164 TRs per run
+
+The dimensions of the data for each run are: (78, 93, 78, 164)
+
+The stimulus duration is 2 seconds (TR=2)
+
+XYZ dimensionality is: (78, 93, 78)
+
+Numeric precision of data is: <class 'numpy.float64'>
+
+{'R2thresh': 0,
+ 'brainR2': [],
+ 'brainexclude': False,
+ 'brainthresh': [99.0, 0.1],
+ 'chunklen': 50000,
+ 'extra_regressors': False,
+ 'firdelay': 30,
+ 'firpct': 99,
+ 'fracs': 0.05,
+ 'hrffitmask': 1,
+ 'hrfmodel': 'optimise',
+ 'hrfthresh': 0.5,
+ 'lambda': 0,
+ 'n_boots': 100,
+ 'n_jobs': 1,
+ 'n_pcs': 10,
+ 'numforhrf': 50,
+ 'pcR2cutoff': [],
+ 'pcR2cutoffmask': 1,
+ 'pcstop': -5,
+ 'seed': 1774376222.45671,
+ 'suppressoutput': 0,
+ 'wantautoscale': 1,
+ 'wantfileoutputs': [1, 1, 1, 1],
+ 'wantfracridge': 1,
+ 'wantglmdenoise': 1,
+ 'wanthdf5': 1,
+ 'wantlibrary': 1,
+ 'wantlss': 0,
+ 'wantmemoryoutputs': [1, 1, 1, 1],
+ 'wantparametric': 0,
+ 'wantpercentbold': 1}
+running GLMsingle... OUTPUTDIR exists: False and is being overwritten: True
+*** DIAGNOSTICS ***:
+There are 1 runs.
+The number of conditions in this experiment is 24.
+The stimulus duration corresponding to each trial is 2.00 seconds.
+The TR (time between successive data points) is 2.00 seconds.
+The number of trials in each run is: [72].
+The number of trials for each condition is: [np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3), np.int64(3)].
+For each condition, the number of runs in which it appears: [np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(1)].
+For each run, how much ending buffer do we have in seconds? [np.int64(12)].
+*** Saving design-related results to /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle/output_glmsingle_UID-sub-002_pcstop-5_fracs-0.05/DESIGNINFO.npy. ***
+*** FITTING DIAGNOSTIC RUN-WISE FIR MODEL ***
+*** Saving FIR results to /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle/output_glmsingle_UID-sub-002_pcstop-5_fracs-0.05/RUNWISEFIR.npy. ***
+
+*** FITTING TYPE-A MODEL (ONOFF) ***
+
+fitting model...
+done.
+
+preparing output...
+done.
+
+computing model fits...
+done.
+
+computing R^2...
+done.
+
+computing SNR...
+done.
+
+
+*** Saving results to /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle/output_glmsingle_UID-sub-002_pcstop-5_fracs-0.05/TYPEA_ONOFF.hdf5. ***
+
+*** Setting brain R2 threshold to 0.5952555725601302 ***
+
+*** FITTING TYPE-B MODEL (FITHRF) ***
+
+
+*** Saving results to /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle/output_glmsingle_UID-sub-002_pcstop-5_fracs-0.05/TYPEB_FITHRF.hdf5. ***
+
+*** DETERMINING GLMDENOISE REGRESSORS ***
+
+
+*** FITTING TYPE-C MODEL (GLMDENOISE) ***
+
+
+*** Saving results to /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle/output_glmsingle_UID-sub-002_pcstop-5_fracs-0.05/TYPEC_FITHRF_GLMDENOISE.hdf5. ***
+
+*** FITTING TYPE-D MODEL (GLMDENOISE_RR) ***
+
+
+*** Saving results to /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/output_glmsingle/output_glmsingle_UID-sub-002_pcstop-5_fracs-0.05/TYPED_FITHRF_GLMDENOISE_RR.hdf5. ***
+
+*** All model types done ***
+
+*** return model types in results ***
+
+	elapsed time:  00:07:10
+finished running GLMsingle
