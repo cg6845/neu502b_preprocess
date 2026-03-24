@@ -100,7 +100,7 @@ def main(raw_args=None):
     ### Arguments for GLMsingle ###
 
 
-    if pcstop is not None:
+    if args.pcstop is not None:
         pcstop = -args.pcstop
     else:
         pcstop = args.pcstop
