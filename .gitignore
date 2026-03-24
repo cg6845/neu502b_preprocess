@@ -13,6 +13,10 @@
 *.tgz
 *.tar.gz
 *.dicom
+
+# glmsingle outputs 
+*.hdf5
+
 # Data directories
 
 data/*
