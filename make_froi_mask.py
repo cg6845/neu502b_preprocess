@@ -11,17 +11,15 @@ import os
 ###### DEFINE PARAMETERS ######
 
 # defining global vars
-SUBJECTS = '/mindhive/evlab/u/Shared/SUBJECTS'
-LANG_PARCEL = '/mindhive/evlab/u/Shared/ROIS_Nov2020/Func_Lang_LHRH_SN220/allParcels_language.nii'
-LANG_FIRST_LEVEL = 'DefaultMNI_PlusStructural/results/firstlevel/langlocSN'
-LANG_SPMT = 'spmT_0003.nii'
-EXPORT_PATH = '/nese/mit/group/evlab/u/holson/LBLLM_analysis/output_localizers/langloc/top10percent'
+SUBJECTS = 'sub-002'
+LANG_PARCEL = '/usr/people/zt4569/neu502b/neu502b_fmri/final_proj_localizer.allParcel-language-SN220.nii'
+# LANG_FIRST_LEVEL = 'DefaultMNI_PlusStructural/results/firstlevel/langlocSN'
+LANG_SPMT = f'{SUBJECTS}_S_minus_N_effect.nii.gz'
+EXPORT_PATH = '/usr/people/zt4569/neu502b/neu502b_fmri/localizer_masks/'
 ROI_MAPS = {1:'LH_IFGorb', 2:'LH_IFG', 3:'LH_MFG', 4:'LH_AntTemp', 5:'LH_PostTemp', 6:'LH_AnG', 7:'RH_IFGorb', 8:'RH_IFG', 9:'RH_MFG', 10:'RH_AntTemp', 11:'RH_PostTemp', 12:'RH_AnG'}
 
 # defining task specific vars
-sub = '1197_FED_20240919a_3T1_PL2017'
-first_level_dir = join(SUBJECTS, sub, LANG_FIRST_LEVEL)
-task_name = LANG_FIRST_LEVEL.split('/')[-1]
+first_level_dir = "/usr/people/zt4569/neu502b/neu502b_fmri/final_proj_localizer"
 print('fetching data from first level directory: ', first_level_dir)
 
 ###### DEFINE PARAMETERS ######
@@ -104,8 +102,8 @@ def save_maps_as_npy_and_nii(thresholded_t_map, froi_region):
     # binarize thresholded t maps
     thresholded_t_map[thresholded_t_map!=0] = 1
     
-    export_path = f'{EXPORT_PATH}/{sub}'
-    export_filename = f'{export_path}/{task_name}_{froi_region}_fROI_mask_binary_top10percent'
+    export_path = f'{EXPORT_PATH}'
+    export_filename = f'{export_path}/{froi_region}_fROI_mask_binary_top10percent'
     
     # if no dir make dir
     if not exists(export_path):
