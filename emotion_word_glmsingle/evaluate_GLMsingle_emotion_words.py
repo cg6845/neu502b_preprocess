@@ -110,7 +110,10 @@ def main(raw_args=None):
     if pcstop == 0:
         pcstop = '-0'  # make sure the string names are correct!
     fracs = args.fracs
-    brain_R2 = args.brain_R2
+    if args.brain_R2 is not None:
+        brain_R2 = int(args.brain_R2)
+    else:
+        brain_R2 = args.brain_R2
 
     ### Set output, log, and MRI data directories ###
 
