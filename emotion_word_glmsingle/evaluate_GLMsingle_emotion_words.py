@@ -73,6 +73,8 @@ def main(raw_args=None):
                         help='If not None, supply a path to a directory to save outputs to')                    
     parser.add_argument('--FMRI_DATA_DIR', default = '/usr/people/cg6845/neu502b/preprocess/502b_language/pygers_workshop/sample_study/data/bids/derivatives/fmriprep',
                         help='Directory where to fetch fMRI data from')
+    parser.add_argument('--brain_R2', default = None, 
+                        help = "Threshold R^2 value for determining whether or not voxels are in the noise pool. If None, uses standard GLMsingle parameters to determine best value.")
     args = parser.parse_args(raw_args)
 
     import glmsingle
@@ -108,6 +110,7 @@ def main(raw_args=None):
     if pcstop == 0:
         pcstop = '-0'  # make sure the string names are correct!
     fracs = args.fracs
+    brain_R2 = args.brain_R2
 
     ### Set output, log, and MRI data directories ###
 
@@ -117,6 +120,8 @@ def main(raw_args=None):
         identifier += f"_pcstop{pcstop}"
     if fracs is not None:
         identifier += f"_fracs-{fracs}"
+    if brain_R2 is not None:
+        identifier += f"_brainR2-{brain_R2}"
     if args.want_library == 0:
         identifier += '_noHRF' # Run without HRF library
 
@@ -286,6 +291,8 @@ def main(raw_args=None):
         opt['pcstop'] = pcstop
     if fracs is not None:
         opt['fracs'] = fracs
+    if brain_R2 is not None:
+        opt['brainR2'] = brain_R2
 
     # add wanthdf5 flag
     opt['wanthdf5'] = 1
