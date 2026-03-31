@@ -1,0 +1,34 @@
+/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py:218: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+  file = np.array(nib.load(fmri_data_path).dataobj)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:657: UserWarning: None of your conditions occur in more than one run. Are you sure this is what you intend?
+  warnings.warn(msg)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:663: UserWarning: pcstop is specified as the -B case. We will not be performing cross-validation, but will be performing glmdenoise using B number of PCs
+  warnings.warn(msg)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:680: UserWarning: fracs is specified as the single scalar case. We will not beperforming cross-validation, but will be performing ridge regression using the user-supplied fraction
+  warnings.warn(msg)
+chunks:   0%|          | 0/12 [00:00<?, ?it/s]chunks:   8%|▊         | 1/12 [00:08<01:31,  8.29s/it]chunks:  17%|█▋        | 2/12 [00:16<01:22,  8.21s/it]chunks:  25%|██▌       | 3/12 [00:24<01:12,  8.09s/it]chunks:  33%|███▎      | 4/12 [00:32<01:04,  8.09s/it]chunks:  42%|████▏     | 5/12 [00:40<00:56,  8.11s/it]chunks:  50%|█████     | 6/12 [00:48<00:48,  8.15s/it]chunks:  58%|█████▊    | 7/12 [00:56<00:39,  7.84s/it]chunks:  67%|██████▋   | 8/12 [01:03<00:30,  7.66s/it]chunks:  75%|███████▌  | 9/12 [01:10<00:22,  7.50s/it]chunks:  83%|████████▎ | 10/12 [01:17<00:14,  7.37s/it]chunks:  92%|█████████▏| 11/12 [01:24<00:07,  7.21s/it]chunks: 100%|██████████| 12/12 [01:31<00:00,  7.20s/it]chunks: 100%|██████████| 12/12 [01:31<00:00,  7.63s/it]
+Traceback (most recent call last):
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 330, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 307, in main
+    results_glmsingle = glmsingle_obj.fit(
+        design,
+    ...<3 lines>...
+        outputdir=OUTPUTDIR,
+        figuredir=join(OUTPUTDIR, 'figures'),)
+  File "/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py", line 1274, in fit
+    noise_pool = normalize(noise_pool, axis=0)
+  File "/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/sklearn/utils/_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/sklearn/preprocessing/_data.py", line 2028, in normalize
+    X = check_array(
+        X,
+    ...<4 lines>...
+        force_writeable=True,
+    )
+  File "/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/sklearn/utils/validation.py", line 1106, in check_array
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Found array with 0 feature(s) (shape=(164, 0)) while a minimum of 1 is required by the normalize function.

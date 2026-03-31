@@ -1,0 +1,23 @@
+/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py:223: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+  file = np.array(nib.load(fmri_data_path).dataobj)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:657: UserWarning: None of your conditions occur in more than one run. Are you sure this is what you intend?
+  warnings.warn(msg)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:663: UserWarning: pcstop is specified as the -B case. We will not be performing cross-validation, but will be performing glmdenoise using B number of PCs
+  warnings.warn(msg)
+/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py:680: UserWarning: fracs is specified as the single scalar case. We will not beperforming cross-validation, but will be performing ridge regression using the user-supplied fraction
+  warnings.warn(msg)
+chunks:   0%|          | 0/12 [00:00<?, ?it/s]chunks:   8%|▊         | 1/12 [00:08<01:35,  8.66s/it]chunks:  17%|█▋        | 2/12 [00:17<01:26,  8.64s/it]chunks:  25%|██▌       | 3/12 [00:25<01:17,  8.67s/it]chunks:  33%|███▎      | 4/12 [00:34<01:09,  8.71s/it]chunks:  42%|████▏     | 5/12 [00:43<01:00,  8.71s/it]chunks:  50%|█████     | 6/12 [00:52<00:52,  8.72s/it]chunks:  58%|█████▊    | 7/12 [00:59<00:41,  8.37s/it]chunks:  67%|██████▋   | 8/12 [01:07<00:32,  8.02s/it]chunks:  75%|███████▌  | 9/12 [01:21<00:29,  9.90s/it]chunks:  83%|████████▎ | 10/12 [01:29<00:18,  9.36s/it]chunks:  92%|█████████▏| 11/12 [01:41<00:10, 10.20s/it]chunks: 100%|██████████| 12/12 [02:00<00:00, 12.99s/it]chunks: 100%|██████████| 12/12 [02:00<00:00, 10.06s/it]
+Traceback (most recent call last):
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 337, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 314, in main
+    results_glmsingle = glmsingle_obj.fit(
+        design,
+    ...<3 lines>...
+        outputdir=OUTPUTDIR,
+        figuredir=join(OUTPUTDIR, 'figures'),)
+  File "/usr/people/bs1799/miniconda3/lib/python3.13/site-packages/glmsingle/glmsingle.py", line 1246, in fit
+    badR2 = onoffR2 < params['brainR2']
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+numpy._core._exceptions._UFuncNoLoopError: ufunc 'less' did not contain a loop with signature matching types (<class 'numpy.dtypes.Float64DType'>, <class 'numpy.dtypes.StrDType'>) -> None

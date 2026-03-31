@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 340, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/cup/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/evaluate_GLMsingle_emotion_words.py", line 114, in main
+    brain_R2 = int(args.brain_R2)
+ValueError: invalid literal for int() with base 10: '0.7727'

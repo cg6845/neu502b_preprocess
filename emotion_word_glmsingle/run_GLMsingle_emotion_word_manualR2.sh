@@ -8,4 +8,4 @@
 source /usr/people/bs1799/miniconda3/etc/profile.d/conda.sh
 conda activate base
 cd /usr/people/bs1799/neu502b/neu502b_fmri/emotion_word_glmsingle/
-python evaluate_GLMsingle_emotion_words.py --UID "${1}" --stimdur "2" --brain_R2 "0.7727"
+python evaluate_GLMsingle_emotion_words.py --UID "${1}" --stimdur "2" --brain_R2 0.7727
