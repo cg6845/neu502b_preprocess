@@ -1,0 +1,97 @@
+﻿subject_name,subid,word,word_id,category_num,category_arousal,category_valence,valence_rating,arousal_rating
+bianca,sub-001,depressed,1,3,low,low,-3,-2
+bianca,sub-001,alarmed,2,2,high,low,-1,3
+bianca,sub-001,pleased,3,4,low,high,2,-1
+bianca,sub-001,distressed,4,2,high,low,-2,2
+bianca,sub-001,annoyed,5,2,high,low,-2,1
+bianca,sub-001,satisfied,6,4,low,high,2,-1
+bianca,sub-001,astonished,7,1,high ,high,2,1
+bianca,sub-001,afraid,8,2,high,low,-3,2
+bianca,sub-001,calm,9,4,low,high,1,-3
+bianca,sub-001,sleepy,10,4,low,high,0,-2
+bianca,sub-001,frustrated,11,2,high,low,-2,1
+bianca,sub-001,content,12,4,low,high,2,-2
+bianca,sub-001,angry,13,2,high,low,-3,2
+bianca,sub-001,droopy,14,3,low,low,-1,-3
+bianca,sub-001,tired,15,3,low,low,-1,-3
+bianca,sub-001,excited,16,1,high ,high,2,3
+bianca,sub-001,bored,17,3,low,low,-1,-3
+bianca,sub-001,aroused,18,1,high ,high,1,3
+bianca,sub-001,glad,19,1,high ,high,2,-1
+bianca,sub-001,serene,20,4,low,high,2,-2
+bianca,sub-001,amused,21,1,high ,high,2,0
+bianca,sub-001,delighted,22,1,high ,high,3,2
+bianca,sub-001,gloomy,23,3,low,low,-3,-2
+bianca,sub-001,miserable,24,3,low,low,-3,-1
+grace,sub-002,depressed,1,3,low,low,-3,2
+grace,sub-002,alarmed,2,2,high,low,-3,3
+grace,sub-002,pleased,3,4,low,high,1,-1
+grace,sub-002,distressed,4,2,high,low,-3,3
+grace,sub-002,annoyed,5,2,high,low,-2,1
+grace,sub-002,satisfied,6,4,low,high,1,0
+grace,sub-002,astonished,7,1,high ,high,0,2
+grace,sub-002,afraid,8,2,high,low,-2,2
+grace,sub-002,calm,9,4,low,high,1,-3
+grace,sub-002,sleepy,10,4,low,high,-1,-1
+grace,sub-002,frustrated,11,2,high,low,-3,2
+grace,sub-002,content,12,4,low,high,1,-1
+grace,sub-002,angry,13,2,high,low,-2,2
+grace,sub-002,droopy,14,3,low,low,-1,-2
+grace,sub-002,tired,15,3,low,low,-1,-3
+grace,sub-002,excited,16,1,high ,high,3,2
+grace,sub-002,bored,17,3,low,low,-1,-2
+grace,sub-002,aroused,18,1,high ,high,0,3
+grace,sub-002,glad,19,1,high ,high,1,-1
+grace,sub-002,serene,20,4,low,high,2,-3
+grace,sub-002,amused,21,1,high ,high,1,1
+grace,sub-002,delighted,22,1,high ,high,2,2
+grace,sub-002,gloomy,23,3,low,low,-2,-2
+grace,sub-002,miserable,24,3,low,low,-3,-2
+tim,sub-003,depressed,1,3,low,low,-3,-3
+tim,sub-003,alarmed,2,2,high,low,0,3
+tim,sub-003,pleased,3,4,low,high,3,0
+tim,sub-003,distressed,4,2,high,low,-3,2
+tim,sub-003,annoyed,5,2,high,low,-3,2
+tim,sub-003,satisfied,6,4,low,high,3,0
+tim,sub-003,astonished,7,1,high ,high,2,3
+tim,sub-003,afraid,8,2,high,low,-2,1
+tim,sub-003,calm,9,4,low,high,2,-2
+tim,sub-003,sleepy,10,4,low,high,0,-3
+tim,sub-003,frustrated,11,2,high,low,-2,3
+tim,sub-003,content,12,4,low,high,2,-1
+tim,sub-003,angry,13,2,high,low,-2,3
+tim,sub-003,droopy,14,3,low,low,-1,-3
+tim,sub-003,tired,15,3,low,low,-2,-2
+tim,sub-003,excited,16,1,high ,high,2,3
+tim,sub-003,bored,17,3,low,low,0,-3
+tim,sub-003,aroused,18,1,high ,high,1,3
+tim,sub-003,glad,19,1,high ,high,3,2
+tim,sub-003,serene,20,4,low,high,2,-3
+tim,sub-003,amused,21,1,high ,high,2,0
+tim,sub-003,delighted,22,1,high ,high,3,1
+tim,sub-003,gloomy,23,3,low,low,-2,0
+tim,sub-003,miserable,24,3,low,low,-3,2
+anna,sub-004,depressed,1,3,low,low,-2,1
+anna,sub-004,alarmed,2,2,high,low,0,2
+anna,sub-004,pleased,3,4,low,high,2,2
+anna,sub-004,distressed,4,2,high,low,-3,3
+anna,sub-004,annoyed,5,2,high,low,-3,3
+anna,sub-004,satisfied,6,4,low,high,1,1
+anna,sub-004,astonished,7,1,high ,high,0,2
+anna,sub-004,afraid,8,2,high,low,-3,3
+anna,sub-004,calm,9,4,low,high,1,1
+anna,sub-004,sleepy,10,4,low,high,-1,-2
+anna,sub-004,frustrated,11,2,high,low,-3,3
+anna,sub-004,content,12,4,low,high,2,1
+anna,sub-004,angry,13,2,high,low,-3,3
+anna,sub-004,droopy,14,3,low,low,-1,-2
+anna,sub-004,tired,15,3,low,low,-2,-3
+anna,sub-004,excited,16,1,high ,high,3,2
+anna,sub-004,bored,17,3,low,low,-2,-2
+anna,sub-004,aroused,18,1,high ,high,2,2
+anna,sub-004,glad,19,1,high ,high,2,1
+anna,sub-004,serene,20,4,low,high,1,1
+anna,sub-004,amused,21,1,high ,high,1,1
+anna,sub-004,delighted,22,1,high ,high,2,1
+anna,sub-004,gloomy,23,3,low,low,-1,-1
+anna,sub-004,miserable,24,3,low,low,-3,3

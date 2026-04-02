@@ -1,6 +1,6 @@
 random_subid,subid,condition,cond_duration,trial,word_id,word,category_num,category_arousal,category_valence,expected_onset,expected_offset,recorded_onset,trigger_start_time,adjusted_recorded_onset,adjusted_calc_offset,code_end_time,adjusted_code_end_time,expected_recorded_onset_diff
 a5096d2c-fd6c-4ef0-adec-76a5cfec123f,sub-001,emotion_word,2,0,1,depressed,3,low,low,10,12,112.1651,102.1597,10.0054,12.0054,430.161,328.0013,0.0054
-a5096d2c-fd6c-4ef0-adec-76a5cfec123f,sub-001,emotion_word,2,1,2,alarmed,3,high,low,14,16,116.1654,102.1597,14.0057,16.0057,430.161,328.0013,0.0057
+a5096d2c-fd6c-4ef0-adec-76a5cfec123f,sub-001,emotion_word,2,1,2,alarmed,2,high,low,14,16,116.1654,102.1597,14.0057,16.0057,430.161,328.0013,0.0057
 a5096d2c-fd6c-4ef0-adec-76a5cfec123f,sub-001,emotion_word,2,2,3,pleased,4,low,high,18,20,120.1647,102.1597,18.005,20.005,430.161,328.0013,0.005
 a5096d2c-fd6c-4ef0-adec-76a5cfec123f,sub-001,emotion_word,2,3,4,distressed,2,high,low,22,24,124.1662,102.1597,22.0065,24.0065,430.161,328.0013,0.0065
 a5096d2c-fd6c-4ef0-adec-76a5cfec123f,sub-001,emotion_word,2,4,5,annoyed,2,high,low,26,28,128.1646,102.1597,26.0049,28.0049,430.161,328.0013,0.0049
