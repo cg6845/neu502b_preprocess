@@ -24,7 +24,7 @@ library(reshape)
 
 ```
 ```{r}
-dat<- read.csv("./neu502b_fmri/output_figures/cross_subject_neural_behavior_rsa.csv")
+dat<- read.csv("./output_figures/cross_subject_neural_behavior_rsa.csv")
 ```
 ```{r}
 within<- dat %>% filter(same_subject=="True")
@@ -45,6 +45,9 @@ eu_within<-within %>% filter (metric=="euclidean")
 cosine_within<-within %>% filter(metric=="cosine")
 cor_within$absR<- abs(cor_within$spearman_r)
 
+```
+```{r}
+cosine_all%>% group_by(same_subject) %>% summarise()
 ```
 
 ```{r}
@@ -121,5 +124,210 @@ ggplot(cosine_all, aes(x = same_subject, y = spearman_r)) +
 
 #ggsave(filename= "./summary_plot/cosine_all_rsa_similarity_plot.pdf", width = 6.5,height = 5, dpi = 300)
 
+```
+
+```{r}
+comparisons <- list(
+  c("True", "False"),
+  c("True", "semantic"),
+  c("False", "semantic")
+)
+library(ggpubr)
+
+ggplot(cosine_all, aes(x = same_subject, y = spearman_r)) +
+  geom_hline(yintercept = 0, alpha = 0.5, color = "black", linetype = "longdash") +
+  geom_jitter(width = 0.2, size = 2.5, alpha = 0.6, aes(color = neural_subject)) +
+  stat_summary(fun = mean, geom = "point", size = 4, color = "red") +
+  stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.2) +
+  stat_compare_means(
+    comparisons = comparisons,
+    method = "t.test",
+    paired = TRUE,
+    label = "p.signif"
+  ) +
+  theme_classic() +
+  labs(
+    x = NULL,
+    y = "Spearman r (Neural–Behavioral)",
+    title = "Neural–Behavioral similarity by comparison (all)"
+  ) +
+  theme(
+    axis.text.x = element_text(size = 13, angle = 0, hjust = 0.5),
+    axis.text.y = element_text(size = 13),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.4)
+  ) +
+  scale_x_discrete(
+    limits = c("True", "False", "semantic"),
+    labels = c(
+      "False" = "Across subjects",
+      "True" = "Within subject",
+      "semantic" = "Semantic"
+    )
+  )
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+wide <- cosine_LH %>%
+  group_by(neural_subject, same_subject) %>%
+  summarise(spearman_r = mean(spearman_r), .groups = "drop") %>%
+  pivot_wider(names_from = same_subject, values_from = spearman_r)
+
+t.test(wide$True, wide$False, paired = TRUE)
+t.test(wide$True, wide$semantic, paired = TRUE)
+t.test(wide$False, wide$semantic, paired = TRUE)
+```
+
+```{r}
+library(dplyr)
+
+subject_means <- cosine_LH %>%
+  group_by(neural_subject, same_subject) %>%
+  summarise(mean_r = mean(spearman_r), .groups = "drop")
+summary_stats <- subject_means %>%
+  group_by(same_subject) %>%
+  summarise(
+    mean_r = mean(mean_r),
+    se_r = sd(mean_r) / sqrt(n()),
+    n = n()
+  )
+
+summary_stats
+```
+```{r}
+library(ggpubr)
+
+comparisons <- list(
+  c("True", "False"),
+  c("True", "semantic"),
+  c("False", "semantic")
+)
+
+ggplot(cosine_all, aes(x = same_subject, y = spearman_r)) +
+  geom_hline(yintercept = 0, alpha = 0.5, color = "black", linetype = "longdash") +
+  geom_jitter(width = 0.2, size = 2.5, alpha = 0.6, aes(color = neural_subject)) +
+  stat_summary(fun = mean, geom = "point", size = 4, color = "red") +
+  stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.2) +
+  stat_compare_means(
+    comparisons = comparisons,
+    method = "t.test",
+    paired = TRUE,
+    label = "p.signif",
+    step.increase = 0.08
+  ) +
+  theme_classic() +
+  labs(
+    x = NULL,
+    y = "Spearman r (Neural–Behavioral)",
+    title = "Neural–Behavioral similarity by comparison (all)"
+  ) +
+  theme(
+    axis.text.x = element_text(size = 13, hjust = 0.5),
+    axis.text.y = element_text(size = 13),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.4)
+  ) +
+  scale_x_discrete(
+    limits = c("True", "False", "semantic"),
+    labels = c(
+      "False" = "Across subjects",
+      "True" = "Within subject",
+      "semantic" = "Semantic"
+    )
+  )
+```
+```{r}
+library(dplyr)
+
+cosine_subject <- cosine_all %>%
+  group_by(neural_subject, same_subject) %>%
+  summarise(spearman_r = mean(spearman_r), .groups = "drop")
+```
+
+```{r}
+ggplot(cosine_subject, aes(x = same_subject, y = spearman_r)) +
+  geom_hline(yintercept = 0, alpha = 0.5, color = "black", linetype = "longdash") +
+  geom_jitter(width = 0.15, size = 2.5, alpha = 0.7, aes(color = neural_subject)) +
+  stat_summary(fun = mean, geom = "point", size = 4, color = "red") +
+  stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.2) +
+  stat_compare_means(
+    comparisons = comparisons,
+    method = "t.test",
+    paired = TRUE,
+    label = "p.signif",
+    hide.ns = TRUE
+  ) +
+  theme_classic() +
+  labs(
+    x = NULL,
+    y = "Spearman r (Neural–Behavioral)",
+    title = "Neural–Behavioral similarity by comparison (all)"
+  ) +
+
+  theme(
+    axis.text.x = element_text(size = 13, hjust = 0.5),
+    axis.text.y = element_text(size = 13),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.4)
+  ) +
+  scale_x_discrete(
+    limits = c("True","False","semantic"),
+    labels = c(
+      "True" = "Within subject",
+      "False" = "Across subjects",
+      "semantic" = "Semantic"
+    )
+  )
+
+#ggsave(filename= "./summary_plot/sig_cosine_all_rsa_similarity_plot.png", width = 6.5,height = 5, dpi = 300)
+```
+```{r}
+library(rstatix)
+
+stat.test <- cosine_subject %>%
+  pairwise_t_test(
+    spearman_r ~ same_subject,
+    paired = TRUE
+  ) %>%
+  filter(p < 0.05)
+```
+```{r}
+ggplot(cosine_subject, aes(x = same_subject, y = spearman_r)) +
+  geom_hline(yintercept = 0, alpha = 0.5, color = "black", linetype = "longdash") +
+  geom_jitter(width = 0.15, size = 2.5, alpha = 0.7, aes(color = neural_subject)) +
+  stat_summary(fun = mean, geom = "point", size = 4, color = "red") +
+  stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.2) +
+
+  # manual significance bracket: True vs False
+  geom_segment(aes(x = 1, xend = 2, y = 0.1, yend = 0.1), inherit.aes = FALSE) +
+  geom_segment(aes(x = 1, xend = 1, y = 0.09, yend = 0.1), inherit.aes = FALSE) +
+  geom_segment(aes(x = 2, xend = 2, y = 0.09, yend = 0.1), inherit.aes = FALSE) +
+  annotate("text", x = 1.5, y = 0.105, label = "*", size = 6) +
+
+  theme_classic() +
+  labs(
+    x = NULL,
+    y = "Spearman r (Neural–Behavioral)",
+    title = "Neural–Behavioral similarity by comparison (all)"
+  ) +
+  theme(
+    axis.text.x = element_text(size = 13, hjust = 0.5),
+    axis.text.y = element_text(size = 13),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.4)
+  ) +
+  scale_x_discrete(
+    limits = c("True","False","semantic"),
+    labels = c(
+      "True" = "Within subject",
+      "False" = "Across subjects",
+      "semantic" = "Semantic"
+    )
+  )
+ggsave(filename= "./summary_plot/sig_cosine_all_rsa_similarity_plot.png", width = 6.5,height = 5, dpi = 300)
+```
 ```
 
